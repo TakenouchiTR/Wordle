@@ -53,7 +53,6 @@ unordered_set<string> DictionaryReader::readFile(int wordLength, const string& f
         if (line.size() == wordLength)
         {
             result.insert(line);
-            cout << line << endl;
         }
     }
 

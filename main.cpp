@@ -23,8 +23,5 @@ int main (int argc, char ** argv)
   window->end ();
   window->show (argc, argv);
 
-  DictionaryReader reader;
-  reader.readFile(5, "dictionary.txt");
-
   return(Fl::run());
 }
