@@ -13,6 +13,9 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="./" />
+					<Add directory="io" />
+					<Add directory="utils" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -22,7 +25,11 @@
 		<Linker>
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
+		<Unit filename="io/DictionaryReader.cpp" />
+		<Unit filename="io/DictionaryReader.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="utils/Utils.cpp" />
+		<Unit filename="utils/Utils.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

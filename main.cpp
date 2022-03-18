@@ -2,6 +2,12 @@
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Box.H>
 
+#include <iostream>
+using namespace std;
+
+#include "DictionaryReader.h"
+using namespace io;
+
 int main (int argc, char ** argv)
 {
   Fl_Window *window;
@@ -16,6 +22,9 @@ int main (int argc, char ** argv)
   box->labeltype (FL_SHADOW_LABEL);
   window->end ();
   window->show (argc, argv);
+
+  DictionaryReader reader;
+  reader.readFile(5, "dictionary.txt");
 
   return(Fl::run());
 }
