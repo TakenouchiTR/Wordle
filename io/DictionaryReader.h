@@ -1,9 +1,11 @@
 #ifndef DICTIONARYREADER_H
 #define DICTIONARYREADER_H
 
-#include <unordered_set>
 #include <string>
 using namespace std;
+
+#include "Dictionary.h"
+using namespace model;
 
 namespace io
 {
@@ -15,7 +17,7 @@ class DictionaryReader
     public:
         DictionaryReader();
         virtual ~DictionaryReader();
-        unordered_set<string> readFile(int wordLength, const string& filePath);
+        Dictionary readFile(int wordLength, const string& filePath);
 
     protected:
 };
