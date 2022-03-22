@@ -10,17 +10,17 @@ namespace model
 
 class Dictionary
 {
-    private:
-        unordered_set<string> words;
+private:
+    unordered_set<string> words;
 
-    public:
-        Dictionary(unordered_set<string>& words);
-        virtual ~Dictionary();
-        bool containsWord(const string& word) const;
-        const string getRandomWord() const;
-        const string getRandomWordWithUniqueLetters() const;
+public:
+    Dictionary(unordered_set<string>& words);
+    virtual ~Dictionary();
+    bool containsWord(const string& word) const;
+    const string getRandomWord() const;
+    const string getRandomWordWithUniqueLetters() const;
 
-    protected:
+protected:
 };
 
 }

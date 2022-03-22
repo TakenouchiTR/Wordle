@@ -12,14 +12,14 @@ namespace io
 
 class DictionaryReader
 {
-    private:
+private:
 
-    public:
-        DictionaryReader();
-        virtual ~DictionaryReader();
-        Dictionary readFile(int wordLength, const string& filePath);
+public:
+    DictionaryReader();
+    virtual ~DictionaryReader();
+    Dictionary readFile(int wordLength, const string& filePath);
 
-    protected:
+protected:
 };
 
 }
