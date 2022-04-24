@@ -23,15 +23,29 @@
 	"Dictionary.h"
 	"Utils.h"
 
-1650821193 /home/aayers4/Desktop/Projects/Git/TeamCWordle/io/DictionaryReader.h
+1648133334 /home/csuser/Downloads/cpp/TeamCWordle/io/DictionaryReader.h
 	<string>
 	"Dictionary.h"
 
-1650821193 /home/aayers4/Desktop/Projects/Git/TeamCWordle/model//Dictionary.h
+1648133334 /home/csuser/Downloads/cpp/TeamCWordle/model//Dictionary.h
 	<string>
 	<unordered_set>
 
-1650821193 /home/aayers4/Desktop/Projects/Git/TeamCWordle/utils/Utils.h
+1648131667 /home/csuser/Downloads/cpp/TeamCWordle/utils/Utils.h
+	<string>
+
+1650827257 source:/home/csuser/Downloads/cpp/TeamCWordle/main.cpp
+	"WordleMainWindow.h"
+	"DictionaryReader.h"
+	"Dictionary.h"
+	"WordleController.h"
+	"GuessStatus.h"
+	<iostream>
+
+1648133334 /home/csuser/Downloads/cpp/TeamCWordle/View/WordleMainWindow.h
+	<FL/Fl.H>
+	<FL/Fl_Box.H>
+	<FL/Fl_Window.H>
 	<string>
 
 1650823868 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/model/Dictionary.cpp
@@ -50,17 +64,23 @@
 	<sstream>
 	<fstream>
 
-1650821776 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/main.cpp
-	"WordleMainWindow.h"
-
-1650823823 /home/aayers4/Desktop/Projects/Git/TeamCWordle/view/WordleMainWindow.h
-	<FL/Fl.H>
-	<FL/Fl_Box.H>
-	<FL/Fl_Window.H>
-	<string>
-
-1650822761 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/view/WordleMainWindow.cpp
+1648133334 source:/home/csuser/Downloads/cpp/TeamCWordle/View/WordleMainWindow.cpp
 	"WordleMainWindow.h"
 	<iostream>
 	<string>
+
+1650827271 source:/home/csuser/Downloads/cpp/TeamCWordle/controller/WordleController.cpp
+	"WordleController.h"
+	<stdexcept>
+	<unordered_map>
+	<iostream>
+	"Dictionary.h"
+	"GuessStatus.h"
+
+1650827250 /home/csuser/Downloads/cpp/TeamCWordle/controller/WordleController.h
+	<string>
+	"Dictionary.h"
+	"GuessStatus.h"
+
+1650825515 /home/csuser/Downloads/cpp/TeamCWordle/GuessStatus.h
 
