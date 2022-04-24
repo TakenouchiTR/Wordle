@@ -13,3 +13,54 @@
 	<FL/Fl_Window.H>
 	<string>
 
+1650821193 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/io/DictionaryReader.cpp
+	"DictionaryReader.h"
+	<stdexcept>
+	<unordered_set>
+	<string>
+	<sstream>
+	<fstream>
+	"Dictionary.h"
+	"Utils.h"
+
+1650821193 /home/aayers4/Desktop/Projects/Git/TeamCWordle/io/DictionaryReader.h
+	<string>
+	"Dictionary.h"
+
+1650821193 /home/aayers4/Desktop/Projects/Git/TeamCWordle/model//Dictionary.h
+	<string>
+	<unordered_set>
+
+1650821193 /home/aayers4/Desktop/Projects/Git/TeamCWordle/utils/Utils.h
+	<string>
+
+1650823868 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/model/Dictionary.cpp
+	"Dictionary.h"
+	<string>
+	<unordered_set>
+	<stdlib.h>
+
+1650821193 /home/aayers4/Desktop/Projects/Git/TeamCWordle/model/Dictionary.h
+	<string>
+	<unordered_set>
+
+1650821193 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/utils/Utils.cpp
+	"Utils.h"
+	<algorithm>
+	<sstream>
+	<fstream>
+
+1650821776 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/main.cpp
+	"WordleMainWindow.h"
+
+1650823823 /home/aayers4/Desktop/Projects/Git/TeamCWordle/view/WordleMainWindow.h
+	<FL/Fl.H>
+	<FL/Fl_Box.H>
+	<FL/Fl_Window.H>
+	<string>
+
+1650822761 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/view/WordleMainWindow.cpp
+	"WordleMainWindow.h"
+	<iostream>
+	<string>
+

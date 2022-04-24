@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Wordle" />
+		<Option title="TeamCWordle" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -18,6 +18,7 @@
 					<Add directory="utils" />
 					<Add directory="model/" />
 					<Add directory="View" />
+					<Add directory="view" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -34,11 +35,8 @@
 		<Unit filename="model/Dictionary.h" />
 		<Unit filename="utils/Utils.cpp" />
 		<Unit filename="utils/Utils.h" />
-		<Unit filename="View/WordleMainWindow.cpp" />
-		<Unit filename="View/WordleMainWindow.h" />
-		<Extensions>
-			<code_completion />
-			<debugger />
-		</Extensions>
+		<Unit filename="view/WordleMainWindow.cpp" />
+		<Unit filename="view/WordleMainWindow.h" />
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
