@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="View" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -22,10 +23,9 @@
 		<Linker>
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
+		<Unit filename="View/WordleMainWindow.cpp" />
+		<Unit filename="View/WordleMainWindow.h" />
 		<Unit filename="main.cpp" />
-		<Extensions>
-			<code_completion />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
