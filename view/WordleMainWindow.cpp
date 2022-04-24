@@ -101,12 +101,6 @@ Fl_Box* WordleMainWindow::getCurrentBox()
     return this->boxes[this->currentRow][this->currentColumn];
 }
 
-/**
-    Deletes this instance of WordleMainWindow.
-
-    precondition: None
-    postcondition: All values have been deleted.
- */
 WordleMainWindow::~WordleMainWindow()
 {
     for (int i = 0; i < WordleMainWindow::NUMBER_OF_ROWS; ++i)
