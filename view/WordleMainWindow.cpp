@@ -69,31 +69,31 @@ int WordleMainWindow::handleKeyDown(int key)
 
 int WordleMainWindow::handleBackspace()
 {
-    if (this->currentColumn > -1)
-        {
-            this->getCurrentBox()->label("");
+    if (this->currentColumn >= 0)
+    {
+        this->getCurrentBox()->label("");
 
-            this->currentColumn--;
-            if (this->currentColumn < 0)
-            {
-                this->currentColumn = 0;
-            }
+        this->currentColumn--;
+        if (this->currentColumn < 0)
+        {
+            this->currentColumn = 0;
         }
+    }
 }
 
 int WordleMainWindow::handleLetterKeyPress(int key)
 {
     if (this->currentColumn < WordleMainWindow::NUMBER_OF_COLUMNS)
+    {
+        char output[1];
+        output[0] = (char) key;
+        this->getCurrentBox()->label(output);
+        this->currentColumn++;
+        if (this->currentColumn >= WordleMainWindow::NUMBER_OF_COLUMNS)
         {
-            char output[1];
-            output[0] = (char) key;
-            this->getCurrentBox()->label(output);
-            this->currentColumn++;
-            if (this->currentColumn >= WordleMainWindow::NUMBER_OF_COLUMNS)
-            {
-                this->currentColumn = WordleMainWindow::NUMBER_OF_COLUMNS - 1;
-            }
+            this->currentColumn = WordleMainWindow::NUMBER_OF_COLUMNS - 1;
         }
+    }
 }
 
 Fl_Box* WordleMainWindow::getCurrentBox()
