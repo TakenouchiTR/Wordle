@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1650328140 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/Wordle/main.cpp
+	"WordleMainWindow.h"
+
+1650772416 source:/home/aayers4/Desktop/Projects/Git/TeamCWordle/Wordle/View/WordleMainWindow.cpp
+	"WordleMainWindow.h"
+	<iostream>
+	<string>
+
+1650770946 /home/aayers4/Desktop/Projects/Git/TeamCWordle/Wordle/View/WordleMainWindow.h
+	<FL/Fl.H>
+	<FL/Fl_Box.H>
+	<FL/Fl_Window.H>
+	<string>
+

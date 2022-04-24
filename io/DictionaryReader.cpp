@@ -5,8 +5,10 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include <iostream>
 using namespace std;
+
+#include "Dictionary.h"
+using namespace model;
 
 #include "Utils.h"
 
@@ -33,18 +35,18 @@ DictionaryReader::~DictionaryReader()
     Params:
         wordLength - The specified length of the word.
         filePath - The path to the dictionary file
-    Return: A set containing all words with the specified length stored in the file.
+    Return: A Dictionary all words with the specified length stored in the file.
     Throws:
         runtime_error - File not found
  */
-unordered_set<string> DictionaryReader::readFile(int wordLength, const string& filePath)
+Dictionary DictionaryReader::readFile(int wordLength, const string& filePath)
 {
     if (!fileExists(filePath))
     {
         throw runtime_error("File " + filePath + " not found.");
     }
 
-    unordered_set<string> result;
+    unordered_set<string> words;
     ifstream fileStream(filePath);
     string line;
 
@@ -52,11 +54,11 @@ unordered_set<string> DictionaryReader::readFile(int wordLength, const string& f
     {
         if (line.size() == wordLength)
         {
-            result.insert(line);
+            words.insert(line);
         }
     }
 
-    return result;
+    return Dictionary(words);
 }
 
 }

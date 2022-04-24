@@ -16,6 +16,8 @@
 					<Add directory="./" />
 					<Add directory="io" />
 					<Add directory="utils" />
+					<Add directory="model/" />
+					<Add directory="View" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -28,8 +30,12 @@
 		<Unit filename="io/DictionaryReader.cpp" />
 		<Unit filename="io/DictionaryReader.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="model/Dictionary.cpp" />
+		<Unit filename="model/Dictionary.h" />
 		<Unit filename="utils/Utils.cpp" />
 		<Unit filename="utils/Utils.h" />
+		<Unit filename="View/WordleMainWindow.cpp" />
+		<Unit filename="View/WordleMainWindow.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
