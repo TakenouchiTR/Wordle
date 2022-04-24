@@ -2,6 +2,7 @@
 *.d
 
 # Compiled Object files
+bin/
 *.slo
 *.lo
 *.o
@@ -30,3 +31,7 @@
 *.exe
 *.out
 *.app
+
+# Locally generated files
+*.layout
+*.depend
