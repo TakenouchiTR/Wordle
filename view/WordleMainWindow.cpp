@@ -5,7 +5,7 @@
 using namespace std;
 
 #include "WordleController.h"
-#include "../GuessStatus.h"
+#include "GuessStatus.h"
 using namespace controller;
 
 namespace view
@@ -95,7 +95,7 @@ int WordleMainWindow::handleEnter()
                 this->boxes[this->currentRow][i]->color(95);
             break;
             case GuessStatus::DOES_NOT_EXIST:
-                this->boxes[this->currentRow][i]->color(40);
+                this->boxes[this->currentRow][i]->color(45);
                 break;
             }
         }

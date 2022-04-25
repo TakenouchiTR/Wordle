@@ -54,6 +54,7 @@ bool Dictionary::containsWord(const string& word) const
  */
 const string Dictionary::getRandomWord() const
 {
+    srand(time(0));
     int index = rand() % this->words.size();
     auto iter = this->words.begin();
     for (int i = 0; i < index; i++)
