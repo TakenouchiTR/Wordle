@@ -45,7 +45,7 @@ WordleMainWindow::WordleMainWindow(int width, int height, const char* title, Wor
         }
         boxYPosition += yIncrement;
     }
-    this->winMessage = new Fl_Box(FL_NO_BOX, 300, 50, 50, 50, "");
+    this->winMessage = new Fl_Box(FL_NO_BOX, 250, 50, 200, 50, "");
     end();
 }
 
@@ -84,13 +84,14 @@ int WordleMainWindow::handleEnter()
             output += this->currentWord[i];
         }
         GuessStatus* verification = this->controller->evaluateGuess(output);
-
+        int correctLetters = 0;
         for (int i = 0; i < WordleMainWindow::NUMBER_OF_COLUMNS; ++i)
         {
             switch(verification[i])
             {
             case GuessStatus::CORRECT_POSITION:
                 this->boxes[this->currentRow][i]->color(63);
+                correctLetters++;
                 break;
             case GuessStatus::INCORRECT_POSITION:
                 this->boxes[this->currentRow][i]->color(95);
@@ -103,6 +104,11 @@ int WordleMainWindow::handleEnter()
 
         this->currentColumn = 0;
         this->currentRow++;
+
+        if (correctLetters == WordleMainWindow::NUMBER_OF_COLUMNS)
+        {
+            setWinState();
+        }
         updateGUI();
     }
 }
@@ -153,6 +159,13 @@ void WordleMainWindow::updateGUI()
     }
 }
 
+void WordleMainWindow::setWinState()
+{
+    this->winMessage->label("Congrats, you are winner.");
+    this->currentRow = WordleMainWindow::NUMBER_OF_ROWS;
+    this->currentColumn = WordleMainWindow::NUMBER_OF_COLUMNS;
+}
+
 WordleMainWindow::~WordleMainWindow()
 {
     for (int i = 0; i < WordleMainWindow::NUMBER_OF_ROWS; ++i)
@@ -163,6 +176,7 @@ WordleMainWindow::~WordleMainWindow()
         }
     }
     delete this->controller;
+    delete this->winMessage;
 }
 }
 
