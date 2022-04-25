@@ -8,12 +8,15 @@
 #include <string>
 using namespace std;
 
+#include "WordleController.h"
+using namespace controller;
+
 namespace view
 {
 class WordleMainWindow : public Fl_Window
 {
 public:
-    WordleMainWindow(int width, int height, const char* title);
+    WordleMainWindow(int width, int height, const char* title, WordleController* cotroller);
     virtual ~WordleMainWindow();
 
 private:
@@ -21,14 +24,16 @@ private:
     static const int NUMBER_OF_COLUMNS = 5;
     int currentRow;
     int currentColumn;
-    string currentWord;
+    char currentWord[NUMBER_OF_COLUMNS];
     Fl_Box* boxes[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
+    WordleController* controller;
     int handle(int event);
     int handleKeyDown(int key);
     int handleBackspace();
     int handleLetterKeyPress(int key);
+    int handleEnter();
     Fl_Box* getCurrentBox();
-
+    void updateGUI();
 };
 }
 

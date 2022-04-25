@@ -19,6 +19,7 @@
 					<Add directory="model/" />
 					<Add directory="View" />
 					<Add directory="view" />
+					<Add directory="controller" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -28,6 +29,9 @@
 		<Linker>
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
+		<Unit filename="GuessStatus.h" />
+		<Unit filename="controller/WordleController.cpp" />
+		<Unit filename="controller/WordleController.h" />
 		<Unit filename="io/DictionaryReader.cpp" />
 		<Unit filename="io/DictionaryReader.h" />
 		<Unit filename="main.cpp" />
