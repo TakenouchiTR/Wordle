@@ -45,6 +45,7 @@ WordleMainWindow::WordleMainWindow(int width, int height, const char* title, Wor
         }
         boxYPosition += yIncrement;
     }
+    this->winMessage = new Fl_Box(FL_NO_BOX, 300, 50, 50, 50, "");
     end();
 }
 

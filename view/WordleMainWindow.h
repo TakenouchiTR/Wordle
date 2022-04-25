@@ -25,6 +25,7 @@ private:
     int currentRow;
     int currentColumn;
     char currentWord[NUMBER_OF_COLUMNS];
+    Fl_Box* winMessage;
     Fl_Box* boxes[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
     WordleController* controller;
     int handle(int event);
@@ -33,6 +34,7 @@ private:
     int handleLetterKeyPress(int key);
     int handleEnter();
     Fl_Box* getCurrentBox();
+    void setWinState();
     void updateGUI();
 };
 }
