@@ -30,6 +30,7 @@
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
 		<Unit filename="GuessStatus.h" />
+		<Unit filename="controller/GuessStatus.h" />
 		<Unit filename="controller/WordleController.cpp" />
 		<Unit filename="controller/WordleController.h" />
 		<Unit filename="io/DictionaryReader.cpp" />
