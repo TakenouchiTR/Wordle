@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="TeamCWordle" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Wordle" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="./" />
+					<Add directory="io" />
+					<Add directory="utils" />
+					<Add directory="model/" />
+					<Add directory="View" />
+					<Add directory="view" />
+					<Add directory="controller" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="`fltk-config --cxxflags`" />
+		</Compiler>
+		<Linker>
+			<Add option="`fltk-config --ldstaticflags`" />
+		</Linker>
+		<Unit filename="controller/GuessStatus.h" />
+		<Unit filename="controller/WordleController.cpp" />
+		<Unit filename="controller/WordleController.h" />
+		<Unit filename="io/DictionaryReader.cpp" />
+		<Unit filename="io/DictionaryReader.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="model/Dictionary.cpp" />
+		<Unit filename="model/Dictionary.h" />
+		<Unit filename="utils/Utils.cpp" />
+		<Unit filename="utils/Utils.h" />
+		<Unit filename="view/WordleMainWindow.cpp" />
+		<Unit filename="view/WordleMainWindow.h" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
