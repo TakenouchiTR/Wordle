@@ -17,6 +17,8 @@ namespace controller
 
 WordleController::WordleController(Dictionary* dictionary)
 {
+    this->guess = "";
+    this->currentWord = "";
     this->useUniqueLetters = true;
     this->dictionary = dictionary;
 }
@@ -41,7 +43,7 @@ void WordleController::selectNewWord()
 #endif // DEBUG_OUTPUT
 }
 
-GuessStatus* WordleController::evaluateGuess(const string& guess)
+GuessStatus* WordleController::evaluateGuess()
 {
     if (guess.size() != this->currentWord.size())
     {
@@ -98,6 +100,44 @@ GuessStatus* WordleController::evaluateGuess(const string& guess)
     }
 
     return result;
+}
+
+void WordleController::addLetterToGuess(char letter)
+{
+    this->guess += letter;
+}
+
+void WordleController::removeLetterFromGuess()
+{
+    if (this->guess.size() > 0)
+    {
+        this->guess.erase(this->guess.size() - 1);
+    }
+}
+
+void WordleController::clearGuess()
+{
+    this->guess = "";
+}
+
+string& WordleController::getGuess()
+{
+    return this->guess;
+}
+
+bool WordleController::isGuessInDictionary()
+{
+    return this->dictionary->containsWord(this->guess);
+}
+
+bool WordleController::isUsingUniqueLetters()
+{
+    return this->useUniqueLetters;
+}
+
+void WordleController::setUsingUniqueLetters(bool useUniqueLetters)
+{
+    this->useUniqueLetters = useUniqueLetters;
 }
 
 }
