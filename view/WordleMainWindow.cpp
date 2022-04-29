@@ -1,5 +1,7 @@
 #include "WordleMainWindow.h"
 
+#define WORD_SIZE 5
+
 #include <string>
 #include <iostream>
 using namespace std;
@@ -76,50 +78,49 @@ int WordleMainWindow::handleKeyDown(int key)
 
 int WordleMainWindow::handleEnter()
 {
-    if (this->currentRow < WordleMainWindow::NUMBER_OF_ROWS && this->currentColumn == WordleMainWindow::NUMBER_OF_COLUMNS - 1)
+    if (!this->controller->isGuessInDictionary())
     {
-        string output;
-        for (int i = 0; i < WordleMainWindow::NUMBER_OF_COLUMNS; ++i)
-        {
-            output += this->currentWord[i];
-        }
-        GuessStatus* verification = this->controller->evaluateGuess(output);
-        int correctLetters = 0;
-        for (int i = 0; i < WordleMainWindow::NUMBER_OF_COLUMNS; ++i)
-        {
-            switch(verification[i])
-            {
-            case GuessStatus::CORRECT_POSITION:
-                this->boxes[this->currentRow][i]->color(63);
-                correctLetters++;
-                break;
-            case GuessStatus::INCORRECT_POSITION:
-                this->boxes[this->currentRow][i]->color(95);
-            break;
-            case GuessStatus::DOES_NOT_EXIST:
-                this->boxes[this->currentRow][i]->color(45);
-                break;
-            }
-        }
-
-        this->currentColumn = 0;
-        this->currentRow++;
-
-        if (correctLetters == WordleMainWindow::NUMBER_OF_COLUMNS)
-        {
-            setWinState();
-        }
-        updateGUI();
+        return 0;
     }
+
+    GuessStatus* verification = this->controller->evaluateGuess();
+    int correctLetters = 0;
+    for (int i = 0; i < WordleMainWindow::NUMBER_OF_COLUMNS; ++i)
+    {
+        switch(verification[i])
+        {
+        case GuessStatus::CORRECT_POSITION:
+            this->boxes[this->currentRow][i]->color(63);
+            correctLetters++;
+            break;
+        case GuessStatus::INCORRECT_POSITION:
+            this->boxes[this->currentRow][i]->color(95);
+            break;
+        case GuessStatus::DOES_NOT_EXIST:
+            this->boxes[this->currentRow][i]->color(45);
+            break;
+        }
+    }
+
+    this->currentColumn = 0;
+    this->currentRow++;
+
+    if (correctLetters == WordleMainWindow::NUMBER_OF_COLUMNS)
+    {
+        setWinState();
+    }
+    this->controller->clearGuess();
+    updateGUI();
 }
 
 int WordleMainWindow::handleBackspace()
 {
-    if (this->currentColumn >= 0 && this->currentRow < WordleMainWindow::NUMBER_OF_ROWS)
+    if (this->controller->getGuess().size() > 0)
     {
-        this->getCurrentBox()->label("");
-
         this->currentColumn--;
+        this->getCurrentBox()->label("");
+        this->controller->removeLetterFromGuess();
+
         if (this->currentColumn < 0)
         {
             this->currentColumn = 0;
@@ -129,16 +130,19 @@ int WordleMainWindow::handleBackspace()
 
 int WordleMainWindow::handleLetterKeyPress(int key)
 {
-    if (this->currentColumn < WordleMainWindow::NUMBER_OF_COLUMNS && this->currentRow < WordleMainWindow::NUMBER_OF_ROWS)
+    if (this->controller->getGuess().size() < WORD_SIZE)
     {
         char output[1];
         output[0] = (char) key;
         this->currentWord[this->currentColumn] = (char) key;
+
+        this->controller->addLetterToGuess((char) key);
         this->getCurrentBox()->copy_label(output);
         this->currentColumn++;
-        if (this->currentColumn >= WordleMainWindow::NUMBER_OF_COLUMNS)
+
+        if (this->currentColumn > WordleMainWindow::NUMBER_OF_COLUMNS)
         {
-            this->currentColumn = WordleMainWindow::NUMBER_OF_COLUMNS - 1;
+            this->currentColumn = WordleMainWindow::NUMBER_OF_COLUMNS;
         }
     }
 }
