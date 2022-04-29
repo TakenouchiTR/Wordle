@@ -2,6 +2,8 @@
 
 #define WORD_SIZE 5
 
+#include <FL/fl_ask.H>
+
 #include <string>
 #include <iostream>
 using namespace std;
@@ -80,6 +82,10 @@ int WordleMainWindow::handleEnter()
 {
     if (!this->controller->isGuessInDictionary())
     {
+        if (this->controller->getGuess().size() == WORD_SIZE)
+        {
+            fl_alert("\"%s\" is not a known word.", this->controller->getGuess().c_str());
+        }
         return 0;
     }
 
