@@ -6,6 +6,7 @@ namespace controller
 
 enum GuessStatus
 {
+    UNKNOWN,
     DOES_NOT_EXIST,
     INCORRECT_POSITION,
     CORRECT_POSITION,
