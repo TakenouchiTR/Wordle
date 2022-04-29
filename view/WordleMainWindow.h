@@ -29,7 +29,6 @@ private:
 
     int currentRow;
     int currentColumn;
-    char currentWord[NUMBER_OF_COLUMNS];
     unordered_map<char, Fl_Button*> letterButtons;
     unordered_map<char, GuessStatus> letterStatuses;
     Fl_Box* winMessage;

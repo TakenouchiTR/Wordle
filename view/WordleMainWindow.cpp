@@ -2,6 +2,7 @@
 
 #define WORD_SIZE 5
 
+#include <FL/fl_ask.H>
 #include <FL/Fl_Button.H>
 
 #include <string>
@@ -134,6 +135,10 @@ int WordleMainWindow::handleEnter()
 {
     if (!this->controller->isGuessInDictionary())
     {
+        if (this->controller->getGuess().size() == WORD_SIZE)
+        {
+            fl_alert("\"%s\" is not a known word.", this->controller->getGuess().c_str());
+        }
         return 0;
     }
 
@@ -187,8 +192,7 @@ int WordleMainWindow::handleLetterKeyPress(char key)
     if (this->controller->getGuess().size() < WORD_SIZE)
     {
         char output[1];
-        output[0] = key;
-        this->currentWord[this->currentColumn] = (char) key;
+        output[0] = (char) key;
 
         this->controller->addLetterToGuess((char) key);
         this->getCurrentBox()->copy_label(output);
