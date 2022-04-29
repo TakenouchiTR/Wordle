@@ -15,6 +15,17 @@ using namespace model;
 namespace controller
 {
 
+/**
+    Creates an instance of WordController with a specified dictionary.
+
+    Precondition: None
+    Postcondition: this->getGuess() == "" &&
+                   this->isUsingUniqueLetters() &&
+                   Only words present in the dictionary are valid guesses
+
+    Params:
+        dictionary - The dictionary containing all valid words
+ */
 WordleController::WordleController(Dictionary* dictionary)
 {
     this->guess = "";
@@ -28,6 +39,16 @@ WordleController::~WordleController()
     //dtor
 }
 
+/**
+    Randomly selects a word from the controller's dictionary. If this->isUsingUniqueLetters(), then
+    the word will not have any duplicate letters in it.
+
+    Precondition: None
+    Postcondition: The controller will have a new word from the dictionary to guess
+
+    Params: None
+    Return: None
+ */
 void WordleController::selectNewWord()
 {
     if (this->useUniqueLetters)
@@ -43,6 +64,16 @@ void WordleController::selectNewWord()
 #endif // DEBUG_OUTPUT
 }
 
+/**
+    Evaluates this->getGuess() against the current word.
+
+    Precondition: None
+    Postcondition: None
+
+    Params: None
+    Return: An array of size this->getGuess().size() containing the status of each
+                letter.
+ */
 GuessStatus* WordleController::evaluateGuess()
 {
     if (guess.size() != this->currentWord.size())
@@ -102,11 +133,32 @@ GuessStatus* WordleController::evaluateGuess()
     return result;
 }
 
+/**
+    Adds a letter to the end of this->getGuess().
+
+    Precondition: None
+    Postcondition: this->getGuess() == this->getGuess()@prev + letter
+
+    Params: None
+    Return: None
+ */
 void WordleController::addLetterToGuess(char letter)
 {
     this->guess += letter;
 }
 
+/**
+    Removes a letter from the end of this->getGuess(). If this->getGuess() is empty,
+    no action will occur.
+
+    Precondition: None
+    Postcondition: if this->getGuess().size()@prev > 0,
+                       this->getGuess() == this->getGuess().substr(0, this->getGuess().size() - 2)@prev
+                   otherwise None.
+
+    Params: None
+    Return: None
+ */
 void WordleController::removeLetterFromGuess()
 {
     if (this->guess.size() > 0)
@@ -115,26 +167,73 @@ void WordleController::removeLetterFromGuess()
     }
 }
 
+/**
+    Clears the current guess.
+
+    Precondition: None
+    Postcondition: this->getGuess() == ""
+
+    Params: None
+    Return: None
+ */
 void WordleController::clearGuess()
 {
     this->guess = "";
 }
 
+/**
+    Gets the current guess.
+
+    Precondition: None
+    Postcondition: None
+
+    Params: None
+    Return: The current guess.
+ */
 string& WordleController::getGuess()
 {
     return this->guess;
 }
 
+/**
+    Checks whether the current guess is in the dictionary.
+
+    Precondition: None
+    Postcondition: None
+
+    Params: None
+    Return: Whether the current guess is in the dictionary.
+ */
 bool WordleController::isGuessInDictionary()
 {
     return this->dictionary->containsWord(this->guess);
 }
 
+/**
+    Gets whether or not words with duplicated letters can be randomly selected when
+    pucking a new word to guess.
+
+    Precondition: None
+    Postcondition: None
+
+    Params: None
+    Return: Whether words with duplicated letters can be chosen.
+ */
 bool WordleController::isUsingUniqueLetters()
 {
     return this->useUniqueLetters;
 }
 
+/**
+    Sets whether or not words with duplicated letters can be randomly selected when
+    pucking a new word to guess.
+
+    Precondition: None
+    Postcondition: this->isUsingUniqieLetters() == useUniqueLetters
+
+    Params: None
+    Return: None
+ */
 void WordleController::setUsingUniqueLetters(bool useUniqueLetters)
 {
     this->useUniqueLetters = useUniqueLetters;
