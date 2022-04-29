@@ -134,7 +134,6 @@ int WordleMainWindow::handleLetterKeyPress(int key)
     {
         char output[1];
         output[0] = (char) key;
-        this->currentWord[this->currentColumn] = (char) key;
 
         this->controller->addLetterToGuess((char) key);
         this->getCurrentBox()->copy_label(output);

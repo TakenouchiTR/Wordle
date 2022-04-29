@@ -24,7 +24,6 @@ private:
     static const int NUMBER_OF_COLUMNS = 5;
     int currentRow;
     int currentColumn;
-    char currentWord[NUMBER_OF_COLUMNS];
     Fl_Box* winMessage;
     Fl_Box* boxes[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
     WordleController* controller;
