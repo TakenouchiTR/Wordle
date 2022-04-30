@@ -196,6 +196,11 @@ int WordleMainWindow::handleEnter()
         char letter = guess[i];
         GuessStatus status = verification[i];
 
+        if (verification[i] == GuessStatus::CORRECT_POSITION)
+        {
+            correctLetters++;
+        }
+
         this->boxes[this->currentRow][i]->color(STATUS_COLORS[status]);
 
         if (status > this->letterStatuses[letter])
@@ -234,7 +239,7 @@ int WordleMainWindow::handleBackspace()
 
 int WordleMainWindow::handleLetterKeyPress(char key)
 {
-    if (this->controller->getGuess().size() < WORD_SIZE)
+    if (this->controller->getGuess().size() < WORD_SIZE && this->currentRow < NUMBER_OF_ROWS)
     {
         char output[1];
         output[0] = (char) key;
