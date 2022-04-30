@@ -65,7 +65,7 @@ GameViewmodel::GameViewmodel(WordleController* controller)
 
 GameViewmodel::~GameViewmodel()
 {
-    //dtor
+    delete this->controller;
 }
 
 /**

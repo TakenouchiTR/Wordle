@@ -57,6 +57,10 @@ WordleMainWindow::~WordleMainWindow()
             delete this->boxes[i][j];
         }
     }
+    for (char letter = 'a'; letter <= 'z'; letter++)
+    {
+        delete(this->letterButtons[letter]);
+    }
 }
 
 void WordleMainWindow::createLetterGrid()
