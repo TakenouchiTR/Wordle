@@ -17,7 +17,6 @@ int main (int argc, char ** argv)
     auto words = reader.readFile(5, "dictionary.txt");
     Dictionary dictionary(words);
     WordleController* controller = new WordleController(&words);
-    controller->selectNewWord();
 
     WordleMainWindow window(500, 500, "Team C's Wordle Application", controller);
     window.show();

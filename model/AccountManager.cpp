@@ -63,7 +63,7 @@ UserAccount& AccountManager::getAccount(const string& username)
 {
     if (!this->accountExists(username))
     {
-        throw runtime_error("username not found");
+        throw runtime_error("username \"" + username + "\" not found");
     }
     return this->accounts[username];
 }

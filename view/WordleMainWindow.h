@@ -14,14 +14,13 @@ using namespace std;
 #include "GuessStatus.h"
 using namespace controller;
 
+#include "AccountManager.h"
+using namespace model;
+
 namespace view
 {
 class WordleMainWindow : public Fl_Window
 {
-public:
-    WordleMainWindow(int width, int height, const char* title, WordleController* cotroller);
-    virtual ~WordleMainWindow();
-
 private:
     static const int NUMBER_OF_ROWS = 6;
     static const int NUMBER_OF_COLUMNS = 5;
@@ -35,10 +34,13 @@ private:
     Fl_Box* boxes[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
     Fl_Button* testButton;
     WordleController* controller;
+    AccountManager accountManager;
+    UserAccount currentUser;
 
     void setupKeyboard();
     void createKeyboardRow(int startX, int yCoord, int padding, int buttonSize, const string& letters);
 
+    void promptForAccount();
     int handle(int event);
     int handleKeyDown(int key);
     int handleBackspace();
@@ -47,9 +49,15 @@ private:
     Fl_Box* getCurrentBox();
     void setWinState();
     void updateGUI();
+
     static void cbLetterButtonPressed(Fl_Widget* widget, void* data);
     static void cbEnterButtonPressed(Fl_Widget* widget, void* data);
     static void cbBackspaceButtonPressed(Fl_Widget* widget, void* data);
+
+public:
+    WordleMainWindow(int width, int height, const char* title, WordleController* cotroller);
+    virtual ~WordleMainWindow();
+    void show();
 };
 }
 

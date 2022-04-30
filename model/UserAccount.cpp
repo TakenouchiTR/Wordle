@@ -5,24 +5,6 @@ using namespace std;
 
 namespace model
 {
-
-/**
-    Creates an instance of UserAccount.
-
-    Precondition: None
-    Postcondition:
-        this->getUsername() == "" &&
-        this->getGamesPlayed() == 0 &&
-        this->getCurrentWinStreak() == 0 &&
-        this->getMaxWinStream() == 0 &&
-        this->isUsingUniqueLetters() == true &&
-        this->getWinCount(<moves>) == 0 for all moves 1-6, inclusive
- */
-UserAccount::UserAccount()
-{
-
-}
-
 /**
     Creates an instance of UserAccount with a specified username.
 
@@ -52,6 +34,45 @@ UserAccount::UserAccount(const string& username)
 UserAccount::~UserAccount()
 {
     //dtor
+}
+
+/**
+    Adds a win to the account's statistics.
+
+    Precondition: moves >= 1 && <= 6
+    Postcondition: this->getWinCount(moves) == this->getWinCount(moves)@prev + 1 &&
+                   this->getCurrentWinStreak() == this->getCurrentWinStreak@prev + 1 &&
+                   this->getGamesPlayed() == this->getGamesPlayed()@prev + 1 &&
+                   this->getMaxWinStreak() == max(this->getCurrentWinStreak(), this->getMaxWinStreak()@prev + 1)
+
+    Params:
+        moves - The number of moves to win.
+ */
+void UserAccount::addWin(int moves)
+{
+    this->setWinCount(moves, this->winMoveDistribution[moves] + 1);
+    this->currentWinStreak++;
+    this->gamesPlayed++;
+    if (this->currentWinStreak > this->maxWinStreak)
+    {
+        this->maxWinStreak = this->currentWinStreak;
+    }
+}
+
+/**
+    Adds a loss to the account's statistics.
+
+    Precondition: None
+    Postcondition: this->getCurrentWinStreak() == 0 &&
+                   this->getGamesPlayed() == this->getGamesPlayed()@prev + 1
+
+    Params:
+        moves - The number of moves to win.
+ */
+void UserAccount::addLoss()
+{
+    this->currentWinStreak = 0;
+    this->gamesPlayed++;
 }
 
 /**

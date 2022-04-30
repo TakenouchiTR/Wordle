@@ -5,14 +5,17 @@
 #include <FL/fl_ask.H>
 #include <FL/Fl_Button.H>
 
+#include <iostream>
 #include <string>
 #include <unordered_map>
-#include <iostream>
 using namespace std;
 
 #include "WordleController.h"
 #include "GuessStatus.h"
 using namespace controller;
+
+#include "AccountSelectWindow.h"
+#include "DialogResult.h"
 
 namespace view
 {
@@ -103,6 +106,29 @@ void WordleMainWindow::createKeyboardRow(int startX, int yCoord, int padding, in
         button->copy_label(letter);
         button->callback(cbLetterButtonPressed, this);
     }
+}
+
+void WordleMainWindow::show()
+{
+    Fl_Window::show();
+    this->promptForAccount();
+}
+
+void WordleMainWindow::promptForAccount()
+{
+    AccountSelectWindow window(this->accountManager);
+    window.set_modal();
+    while (window.getResult() == DialogResult::CANCELLED)
+    {
+        window.show();
+        while(window.shown())
+        {
+            Fl::wait();
+        }
+    }
+    this->currentUser = window.getAccount();
+    this->controller->setUsingUniqueLetters(this->currentUser.isUsingUniqueLetters());
+    this->controller->selectNewWord();
 }
 
 int WordleMainWindow::handle(int event)
@@ -223,6 +249,7 @@ void WordleMainWindow::updateGUI()
 
 void WordleMainWindow::setWinState()
 {
+    this->currentUser.addWin(this->currentRow + 1);
     this->winMessage->label("Congrats, you are winner.");
     this->currentRow = WordleMainWindow::NUMBER_OF_ROWS;
     this->currentColumn = WordleMainWindow::NUMBER_OF_COLUMNS;

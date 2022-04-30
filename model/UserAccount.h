@@ -20,10 +20,24 @@ private:
     bool useUniqueLetters;
 
 public:
-    UserAccount();
+    /**
+    Creates an instance of UserAccount.
+
+        Precondition: None
+        Postcondition:
+            this->getUsername() == "" &&
+            this->getGamesPlayed() == 0 &&
+            this->getCurrentWinStreak() == 0 &&
+            this->getMaxWinStream() == 0 &&
+            this->isUsingUniqueLetters() == true &&
+            this->getWinCount(<moves>) == 0 for all moves 1-6, inclusive
+    */
+    UserAccount() : UserAccount("") {};
     UserAccount(const string& username);
     virtual ~UserAccount();
 
+    void addWin(int moves);
+    void addLoss();
     const string& getUsername();
     void setUsername(const string& username);
     int getGamesPlayed();
