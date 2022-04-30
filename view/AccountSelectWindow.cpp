@@ -98,6 +98,12 @@ void AccountSelectWindow::newButtonPressed()
         return;
     }
 
+    if (result[0] == 0)
+    {
+        fl_alert("Username cannot be blank.");
+        return;
+    }
+
     if (this->accountManager.accountExists(result))
     {
         fl_alert("Account with username %s already exists", result);
