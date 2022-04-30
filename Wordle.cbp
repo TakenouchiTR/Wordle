@@ -33,6 +33,10 @@
 		<Unit filename="controller/GuessStatus.h" />
 		<Unit filename="controller/WordleController.cpp" />
 		<Unit filename="controller/WordleController.h" />
+		<Unit filename="io/AccountReader.cpp" />
+		<Unit filename="io/AccountReader.h" />
+		<Unit filename="io/AccountWriter.cpp" />
+		<Unit filename="io/AccountWriter.h" />
 		<Unit filename="io/DictionaryReader.cpp" />
 		<Unit filename="io/DictionaryReader.h" />
 		<Unit filename="main.cpp" />

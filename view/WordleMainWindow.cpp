@@ -1,6 +1,7 @@
 #include "WordleMainWindow.h"
 
 #define WORD_SIZE 5
+#define FILE_PATH "data.csv"
 
 #include <FL/fl_ask.H>
 #include <FL/Fl_Button.H>
@@ -16,6 +17,11 @@ using namespace controller;
 
 #include "AccountSelectWindow.h"
 #include "DialogResult.h"
+
+#include "AccountReader.h"
+using namespace io;
+
+#include "Utils.h"
 
 namespace view
 {
@@ -38,6 +44,19 @@ WordleMainWindow::WordleMainWindow(int width, int height, const char* title, Wor
     this->currentRow = 0;
     this->currentColumn = 0;
     this->controller = controller;
+
+    if (fileExists(FILE_PATH))
+    {
+        try
+        {
+            AccountReader reader;
+            this->accountManager = reader.readFile(FILE_PATH);
+        }
+        catch (exception& e)
+        {
+            cout << e.what() << endl;
+        }
+    }
 
     begin();
     int boxYPosition = 20;
