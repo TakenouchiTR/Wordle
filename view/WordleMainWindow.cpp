@@ -1,8 +1,5 @@
 #include "WordleMainWindow.h"
 
-#define WORD_SIZE 5
-#define FILE_PATH "data.csv"
-
 #include <FL/fl_ask.H>
 #include <FL/Fl_Button.H>
 
@@ -12,8 +9,10 @@
 using namespace std;
 
 #include "WordleController.h"
-#include "GuessStatus.h"
 using namespace controller;
+
+#include "GameViewmodel.h"
+using namespace viewmodel;
 
 #include "AccountSelectWindow.h"
 #include "DialogResult.h"
@@ -25,8 +24,6 @@ using namespace io;
 
 namespace view
 {
-const int WordleMainWindow::STATUS_COLORS[4] = {49, 45, 95, 63};
-
 /**
     Creates an instance of WordleMainWindow with width, height, and title.
 
@@ -41,59 +38,47 @@ const int WordleMainWindow::STATUS_COLORS[4] = {49, 45, 95, 63};
  */
 WordleMainWindow::WordleMainWindow(int width, int height, const char* title, WordleController* controller) : Fl_Window(width, height, title)
 {
-    this->currentRow = 0;
-    this->currentColumn = 0;
-    this->controller = controller;
-
-    if (fileExists(FILE_PATH))
-    {
-        try
-        {
-            AccountReader reader;
-            this->accountManager = reader.readFile(FILE_PATH);
-        }
-        catch (exception& e)
-        {
-            cout << e.what() << endl;
-        }
-    }
+    GameViewmodel vm(controller);
+    this->viewmodel = vm;
 
     begin();
-    int boxYPosition = 20;
-    int boxSquareSize = 30;
-    int xIncrement = boxSquareSize + 5;
-    int yIncrement = boxSquareSize + 10;
-
-    for (int i = 0; i < WordleMainWindow::NUMBER_OF_ROWS; ++i)
-    {
-        int boxXPosition = 50;
-        for (int j = 0; j < WordleMainWindow::NUMBER_OF_COLUMNS; ++j)
-        {
-            Fl_Box* box = new Fl_Box(boxXPosition, boxYPosition, boxSquareSize, boxSquareSize, "");
-            box->box (FL_UP_BOX);
-            this->boxes[i][j] = box;
-            boxXPosition += xIncrement;
-        }
-        boxYPosition += yIncrement;
-    }
-
+    this->createLetterGrid();
     this->setupKeyboard();
-
     this->winMessage = new Fl_Box(FL_NO_BOX, 250, 50, 200, 50, "");
     end();
 }
 
 WordleMainWindow::~WordleMainWindow()
 {
-    for (int i = 0; i < WordleMainWindow::NUMBER_OF_ROWS; ++i)
+    for (int i = 0; i < GUESS_COUNT; ++i)
     {
-        for (int j = 0; j < WordleMainWindow::NUMBER_OF_COLUMNS; ++j)
+        for (int j = 0; j < WORD_SIZE; ++j)
         {
             delete this->boxes[i][j];
         }
     }
-    delete this->controller;
-    delete this->winMessage;
+}
+
+void WordleMainWindow::createLetterGrid()
+{
+    int boxYPosition = 20;
+    int boxSquareSize = 30;
+    int xIncrement = boxSquareSize + 5;
+    int yIncrement = boxSquareSize + 10;
+
+    for (int i = 0; i < GUESS_COUNT; ++i)
+    {
+        int boxXPosition = 50;
+        for (int j = 0; j < WORD_SIZE; ++j)
+        {
+            Fl_Box* box = new Fl_Box(boxXPosition, boxYPosition, boxSquareSize, boxSquareSize, "");
+            box->box (FL_UP_BOX);
+            this->boxes[i][j] = box;
+            this->viewmodel.setBox(i, j, box);
+            boxXPosition += xIncrement;
+        }
+        boxYPosition += yIncrement;
+    }
 }
 
 void WordleMainWindow::setupKeyboard()
@@ -114,13 +99,12 @@ void WordleMainWindow::createKeyboardRow(int startX, int yCoord, int padding, in
     int xOffset = buttonSize + padding;
     for (unsigned int i = 0; i < letters.size(); i++)
     {
-        char letter1 = letters[i];
         char letter[1];
         letter[0] = letters[i];
 
         Fl_Button* button = new Fl_Button(startX + xOffset * i, yCoord, buttonSize, buttonSize, "");
         this->letterButtons[letters[i]] = button;
-        this->letterStatuses[letters[i]] = GuessStatus::UNKNOWN;
+        this->viewmodel.setLetterButton(letters[i], button);
 
         button->copy_label(letter);
         button->callback(cbLetterButtonPressed, this);
@@ -130,24 +114,7 @@ void WordleMainWindow::createKeyboardRow(int startX, int yCoord, int padding, in
 void WordleMainWindow::show()
 {
     Fl_Window::show();
-    this->promptForAccount();
-}
-
-void WordleMainWindow::promptForAccount()
-{
-    AccountSelectWindow window(&this->accountManager);
-    window.set_modal();
-    while (window.getResult() == DialogResult::CANCELLED)
-    {
-        window.show();
-        while(window.shown())
-        {
-            Fl::wait();
-        }
-    }
-    this->currentUser = window.getAccount();
-    this->controller->setUsingUniqueLetters(this->currentUser.isUsingUniqueLetters());
-    this->controller->selectNewWord();
+    this->viewmodel.promptForAccount();
 }
 
 int WordleMainWindow::handle(int event)
@@ -164,135 +131,33 @@ int WordleMainWindow::handleKeyDown(int key)
 {
     if (key == FL_Enter)
     {
-        handleEnter();
+        this->viewmodel.makeGuess();
     }
     if (key == FL_BackSpace)
     {
-        handleBackspace();
+        this->viewmodel.removeLetter();
     }
     if (key >= 'a' && key <= 'z')
     {
-        handleLetterKeyPress((char) key);
+        this->viewmodel.addLetter((char) key);
     }
-}
-
-int WordleMainWindow::handleEnter()
-{
-    if (!this->controller->isGuessInDictionary())
-    {
-        if (this->controller->getGuess().size() == WORD_SIZE)
-        {
-            fl_alert("\"%s\" is not a known word.", this->controller->getGuess().c_str());
-        }
-        return 0;
-    }
-
-    GuessStatus* verification = this->controller->evaluateGuess();
-    string guess = this->controller->getGuess();
-    int correctLetters = 0;
-
-    for (int i = 0; i < WordleMainWindow::NUMBER_OF_COLUMNS; ++i)
-    {
-        char letter = guess[i];
-        GuessStatus status = verification[i];
-
-        if (verification[i] == GuessStatus::CORRECT_POSITION)
-        {
-            correctLetters++;
-        }
-
-        this->boxes[this->currentRow][i]->color(STATUS_COLORS[status]);
-
-        if (status > this->letterStatuses[letter])
-        {
-            this->letterStatuses[letter] = status;
-        }
-        this->letterButtons[letter]->color(STATUS_COLORS[this->letterStatuses[letter]]);
-        this->letterButtons[letter]->redraw();
-    }
-
-    this->currentColumn = 0;
-    this->currentRow++;
-
-    if (correctLetters == WordleMainWindow::NUMBER_OF_COLUMNS)
-    {
-        setWinState();
-    }
-    this->controller->clearGuess();
-    updateGUI();
-}
-
-int WordleMainWindow::handleBackspace()
-{
-    if (this->controller->getGuess().size() > 0)
-    {
-        this->currentColumn--;
-        this->getCurrentBox()->label("");
-        this->controller->removeLetterFromGuess();
-
-        if (this->currentColumn < 0)
-        {
-            this->currentColumn = 0;
-        }
-    }
-}
-
-int WordleMainWindow::handleLetterKeyPress(char key)
-{
-    if (this->controller->getGuess().size() < WORD_SIZE && this->currentRow < NUMBER_OF_ROWS)
-    {
-        char output[1];
-        output[0] = (char) key;
-
-        this->controller->addLetterToGuess((char) key);
-        this->getCurrentBox()->copy_label(output);
-        this->currentColumn++;
-
-        if (this->currentColumn > WordleMainWindow::NUMBER_OF_COLUMNS)
-        {
-            this->currentColumn = WordleMainWindow::NUMBER_OF_COLUMNS;
-        }
-    }
-}
-
-Fl_Box* WordleMainWindow::getCurrentBox()
-{
-    return this->boxes[this->currentRow][this->currentColumn];
-}
-
-void WordleMainWindow::updateGUI()
-{
-    for (int i = 0; i < WordleMainWindow::NUMBER_OF_ROWS; ++i)
-    {
-        for (int j = 0; j < WordleMainWindow::NUMBER_OF_COLUMNS; ++j)
-        {
-            this->boxes[i][j]->redraw();
-        }
-    }
-}
-
-void WordleMainWindow::setWinState()
-{
-    this->currentUser.addWin(this->currentRow + 1);
-    this->winMessage->label("Congrats, you are winner.");
-    this->currentRow = WordleMainWindow::NUMBER_OF_ROWS;
-    this->currentColumn = WordleMainWindow::NUMBER_OF_COLUMNS;
 }
 
 void WordleMainWindow::cbLetterButtonPressed(Fl_Widget* widget, void* data)
 {
     Fl_Button* button = (Fl_Button*) widget;
     WordleMainWindow* window = (WordleMainWindow*) data;
-    window->handleLetterKeyPress(button->label()[0]);
+    char letter = button->label()[0];
+    window->viewmodel.addLetter(letter);
 }
 
 void WordleMainWindow::cbEnterButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((WordleMainWindow*)data)->handleEnter();
+    ((WordleMainWindow*)data)->viewmodel.makeGuess();
 }
 
 void WordleMainWindow::cbBackspaceButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((WordleMainWindow*)data)->handleBackspace();
+    ((WordleMainWindow*)data)->viewmodel.removeLetter();
 }
 }

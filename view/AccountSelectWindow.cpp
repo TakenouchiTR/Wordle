@@ -105,7 +105,7 @@ void AccountSelectWindow::newButtonPressed()
         return;
     }
 
-    if (this->accountManager.accountExists(result))
+    if (this->accountManager->accountExists(result))
     {
         fl_alert("Account with username %s already exists", result);
         return;
