@@ -27,6 +27,16 @@ AccountWriter::~AccountWriter()
     //dtor
 }
 
+/**
+    Writes the accounts in an AccountManager to a file.
+
+    Precondition: None
+    Postcondition: None
+
+    Params:
+        filePath - The path to the file.
+        accountManager - The account manager to save.
+ */
 void AccountWriter::writeFile(const string& filePath, AccountManager& accountManager)
 {
     ofstream fileStream(filePath);
