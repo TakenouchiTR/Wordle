@@ -20,6 +20,7 @@
 					<Add directory="View" />
 					<Add directory="view" />
 					<Add directory="controller" />
+					<Add directory="view/" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -35,10 +36,16 @@
 		<Unit filename="io/DictionaryReader.cpp" />
 		<Unit filename="io/DictionaryReader.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="model/AccountManager.cpp" />
+		<Unit filename="model/AccountManager.h" />
 		<Unit filename="model/Dictionary.cpp" />
 		<Unit filename="model/Dictionary.h" />
+		<Unit filename="model/UserAccount.cpp" />
+		<Unit filename="model/UserAccount.h" />
 		<Unit filename="utils/Utils.cpp" />
 		<Unit filename="utils/Utils.h" />
+		<Unit filename="view/AccountSelectWindow.cpp" />
+		<Unit filename="view/AccountSelectWindow.h" />
 		<Unit filename="view/WordleMainWindow.cpp" />
 		<Unit filename="view/WordleMainWindow.h" />
 		<Extensions>
