@@ -164,7 +164,7 @@ void GameViewmodel::makeGuess()
 
     if (correctLetters == WORD_SIZE)
     {
-        displayWinScreen();
+        this->handleWin();
     }
     this->controller->clearGuess();
 }
