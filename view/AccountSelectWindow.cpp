@@ -1,5 +1,8 @@
 #include "AccountSelectWindow.h"
 
+#define WINDOW_WIDTH 240
+#define WINDOW_HEIGHT 135
+
 #include <FL/fl_ask.H>
 
 #include <stdexcept>
@@ -19,7 +22,7 @@ namespace view
                    this->getAccount() is a "random" account in accountManager if accounts
                         exist, otherwise it is null.
  */
-AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager) : Fl_Window(240, 135, "User Select")
+AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager) : Fl_Window(WINDOW_WIDTH, WINDOW_HEIGHT, "User Select")
 {
     this->accountManager = accountManager;
     this->usernames = accountManager->getUsernames();
