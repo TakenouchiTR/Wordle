@@ -48,6 +48,8 @@ GameViewmodel::GameViewmodel(WordleController* controller)
     }
 
     this->controller = controller;
+    this->currentRow = 0;
+    this->currentColumn = 0;
 
     if (fileExists(FILE_PATH))
     {
