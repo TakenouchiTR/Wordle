@@ -21,6 +21,7 @@
 					<Add directory="view" />
 					<Add directory="controller" />
 					<Add directory="view/" />
+					<Add directory="viewmodel/" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -33,6 +34,10 @@
 		<Unit filename="controller/GuessStatus.h" />
 		<Unit filename="controller/WordleController.cpp" />
 		<Unit filename="controller/WordleController.h" />
+		<Unit filename="io/AccountReader.cpp" />
+		<Unit filename="io/AccountReader.h" />
+		<Unit filename="io/AccountWriter.cpp" />
+		<Unit filename="io/AccountWriter.h" />
 		<Unit filename="io/DictionaryReader.cpp" />
 		<Unit filename="io/DictionaryReader.h" />
 		<Unit filename="main.cpp" />
@@ -48,6 +53,8 @@
 		<Unit filename="view/AccountSelectWindow.h" />
 		<Unit filename="view/WordleMainWindow.cpp" />
 		<Unit filename="view/WordleMainWindow.h" />
+		<Unit filename="viewmodel/GameViewmodel.cpp" />
+		<Unit filename="viewmodel/GameViewmodel.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

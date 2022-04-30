@@ -14,6 +14,9 @@ using namespace std;
 #include "GuessStatus.h"
 using namespace controller;
 
+#include "GameViewmodel.h"
+using namespace viewmodel;
+
 #include "AccountManager.h"
 using namespace model;
 
@@ -22,33 +25,19 @@ namespace view
 class WordleMainWindow : public Fl_Window
 {
 private:
-    static const int NUMBER_OF_ROWS = 6;
-    static const int NUMBER_OF_COLUMNS = 5;
-    static const int STATUS_COLORS[];
-
-    int currentRow;
-    int currentColumn;
-    unordered_map<char, Fl_Button*> letterButtons;
-    unordered_map<char, GuessStatus> letterStatuses;
     Fl_Box* winMessage;
-    Fl_Box* boxes[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
-    Fl_Button* testButton;
-    WordleController* controller;
-    AccountManager accountManager;
-    UserAccount currentUser;
+    Fl_Box* boxes[GUESS_COUNT][WORD_SIZE];
+    unordered_map<char, Fl_Button*> letterButtons;
 
+    GameViewmodel* viewmodel;
+
+    void createLetterGrid();
     void setupKeyboard();
     void createKeyboardRow(int startX, int yCoord, int padding, int buttonSize, const string& letters);
 
-    void promptForAccount();
     int handle(int event);
     int handleKeyDown(int key);
-    int handleBackspace();
-    int handleLetterKeyPress(char key);
-    int handleEnter();
     Fl_Box* getCurrentBox();
-    void setWinState();
-    void updateGUI();
 
     static void cbLetterButtonPressed(Fl_Widget* widget, void* data);
     static void cbEnterButtonPressed(Fl_Widget* widget, void* data);
