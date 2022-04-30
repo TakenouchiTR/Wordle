@@ -29,7 +29,7 @@ private:
     Fl_Box* boxes[GUESS_COUNT][WORD_SIZE];
     unordered_map<char, Fl_Button*> letterButtons;
 
-    GameViewmodel viewmodel;
+    GameViewmodel* viewmodel;
 
     void createLetterGrid();
     void setupKeyboard();

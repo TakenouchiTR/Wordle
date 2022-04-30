@@ -38,8 +38,7 @@ namespace view
  */
 WordleMainWindow::WordleMainWindow(int width, int height, const char* title, WordleController* controller) : Fl_Window(width, height, title)
 {
-    GameViewmodel vm(controller);
-    this->viewmodel = vm;
+    this->viewmodel = new GameViewmodel(controller);
 
     begin();
     this->createLetterGrid();
@@ -61,6 +60,7 @@ WordleMainWindow::~WordleMainWindow()
     {
         delete(this->letterButtons[letter]);
     }
+    delete this->viewmodel;
 }
 
 void WordleMainWindow::createLetterGrid()
@@ -78,7 +78,7 @@ void WordleMainWindow::createLetterGrid()
             Fl_Box* box = new Fl_Box(boxXPosition, boxYPosition, boxSquareSize, boxSquareSize, "");
             box->box (FL_UP_BOX);
             this->boxes[i][j] = box;
-            this->viewmodel.setBox(i, j, box);
+            this->viewmodel->setBox(i, j, box);
             boxXPosition += xIncrement;
         }
         boxYPosition += yIncrement;
@@ -108,7 +108,7 @@ void WordleMainWindow::createKeyboardRow(int startX, int yCoord, int padding, in
 
         Fl_Button* button = new Fl_Button(startX + xOffset * i, yCoord, buttonSize, buttonSize, "");
         this->letterButtons[letters[i]] = button;
-        this->viewmodel.setLetterButton(letters[i], button);
+        this->viewmodel->setLetterButton(letters[i], button);
 
         button->copy_label(letter);
         button->callback(cbLetterButtonPressed, this);
@@ -118,7 +118,7 @@ void WordleMainWindow::createKeyboardRow(int startX, int yCoord, int padding, in
 void WordleMainWindow::show()
 {
     Fl_Window::show();
-    this->viewmodel.promptForAccount();
+    this->viewmodel->promptForAccount();
 }
 
 int WordleMainWindow::handle(int event)
@@ -135,15 +135,15 @@ int WordleMainWindow::handleKeyDown(int key)
 {
     if (key == FL_Enter)
     {
-        this->viewmodel.makeGuess();
+        this->viewmodel->makeGuess();
     }
     if (key == FL_BackSpace)
     {
-        this->viewmodel.removeLetter();
+        this->viewmodel->removeLetter();
     }
     if (key >= 'a' && key <= 'z')
     {
-        this->viewmodel.addLetter((char) key);
+        this->viewmodel->addLetter((char) key);
     }
 }
 
@@ -152,16 +152,16 @@ void WordleMainWindow::cbLetterButtonPressed(Fl_Widget* widget, void* data)
     Fl_Button* button = (Fl_Button*) widget;
     WordleMainWindow* window = (WordleMainWindow*) data;
     char letter = button->label()[0];
-    window->viewmodel.addLetter(letter);
+    window->viewmodel->addLetter(letter);
 }
 
 void WordleMainWindow::cbEnterButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((WordleMainWindow*)data)->viewmodel.makeGuess();
+    ((WordleMainWindow*)data)->viewmodel->makeGuess();
 }
 
 void WordleMainWindow::cbBackspaceButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((WordleMainWindow*)data)->viewmodel.removeLetter();
+    ((WordleMainWindow*)data)->viewmodel->removeLetter();
 }
 }
