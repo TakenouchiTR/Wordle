@@ -21,6 +21,7 @@
 					<Add directory="view" />
 					<Add directory="controller" />
 					<Add directory="view/" />
+					<Add directory="viewmodel/" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -52,6 +53,8 @@
 		<Unit filename="view/AccountSelectWindow.h" />
 		<Unit filename="view/WordleMainWindow.cpp" />
 		<Unit filename="view/WordleMainWindow.h" />
+		<Unit filename="viewmodel/GameViewmodel.cpp" />
+		<Unit filename="viewmodel/GameViewmodel.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
