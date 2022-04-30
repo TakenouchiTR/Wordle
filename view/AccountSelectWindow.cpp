@@ -3,6 +3,7 @@
 #include <FL/fl_ask.H>
 
 #include <stdexcept>
+#include <iostream>
 using namespace std;
 
 #include "UserAccount.h"
@@ -10,7 +11,6 @@ using namespace model;
 
 namespace view
 {
-
 /**
     Creates an instance of AccountSelectionWindow using a specified AccountManager.
 
@@ -19,11 +19,12 @@ namespace view
                    this->getAccount() is a "random" account in accountManager if accounts
                         exist, otherwise it is null.
  */
-AccountSelectWindow::AccountSelectWindow(AccountManager& accountManager) : Fl_Window(240, 135, "User Select")
+AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager) : Fl_Window(240, 135, "User Select")
 {
     this->accountManager = accountManager;
-    this->usernames = accountManager.getUsernames();
+    this->usernames = accountManager->getUsernames();
     this->result = DialogResult::CANCELLED;
+    this->selectedAccount = 0;
 
     begin();
     this->nameChoice = new Fl_Choice(55, 20, 165, 20, "User");
@@ -60,7 +61,7 @@ AccountSelectWindow::~AccountSelectWindow()
 void AccountSelectWindow::updateSelectedAccount()
 {
     string username = this->usernames[this->nameChoice->value()];
-    this->selectedAccount = &this->accountManager.getAccount(username);
+    this->selectedAccount = &this->accountManager->getAccount(username);
     this->uniqueLetterCheckButton->value(this->selectedAccount->isUsingUniqueLetters());
 }
 
@@ -98,13 +99,13 @@ void AccountSelectWindow::newButtonPressed()
         return;
     }
 
-    if (this->accountManager.accountExists(result))
+    if (this->accountManager->accountExists(result))
     {
         fl_alert("Account with username %s already exists", result);
         return;
     }
 
-    this->accountManager.createAccount(result);
+    this->accountManager->createAccount(result);
     this->usernames.push_back(result);
     this->nameChoice->add(result);
     this->nameChoice->value(this->usernames.size() - 1);

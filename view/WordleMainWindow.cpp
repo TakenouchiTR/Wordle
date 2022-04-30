@@ -135,7 +135,7 @@ void WordleMainWindow::show()
 
 void WordleMainWindow::promptForAccount()
 {
-    AccountSelectWindow window(this->accountManager);
+    AccountSelectWindow window(&this->accountManager);
     window.set_modal();
     while (window.getResult() == DialogResult::CANCELLED)
     {

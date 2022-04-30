@@ -22,7 +22,7 @@ namespace view
 class AccountSelectWindow : public Fl_Window
 {
 private:
-    AccountManager accountManager;
+    AccountManager* accountManager;
     UserAccount* selectedAccount;
     vector<string> usernames;
     DialogResult result;
@@ -43,7 +43,7 @@ private:
     static void cbNewButtonPressed(Fl_Widget* widget, void* data);
 
 public:
-    AccountSelectWindow(AccountManager& accountManager);
+    AccountSelectWindow(AccountManager* accountManager);
     virtual ~AccountSelectWindow();
 
     UserAccount& getAccount();
