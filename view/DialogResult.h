@@ -13,9 +13,14 @@ namespace view
 enum DialogResult
 {
     /**
-        The dialog closed successfully.
+        The primary option for the dialog was selected.
      */
-    OKAY,
+    PRIMARY,
+
+    /**
+        The secondary option for the dialog was selected.
+     */
+     SECONDARY,
 
     /**
         The dialog was closed using the X button.

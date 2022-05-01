@@ -46,7 +46,7 @@ public:
     AccountSelectWindow(AccountManager* accountManager);
     virtual ~AccountSelectWindow();
 
-    UserAccount& getAccount();
+    UserAccount *getAccount();
     DialogResult getResult();
 
 protected:

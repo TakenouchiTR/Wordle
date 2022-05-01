@@ -26,7 +26,7 @@ class WordleMainWindow : public Fl_Window
 {
 private:
     Fl_Box* winMessage;
-    Fl_Box* boxes[GUESS_COUNT][WORD_SIZE];
+    Fl_Box* boxes[MAX_GUESSES][WORD_SIZE];
     unordered_map<char, Fl_Button*> letterButtons;
 
     GameViewmodel* viewmodel;
