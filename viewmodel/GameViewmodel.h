@@ -29,7 +29,7 @@ class GameViewmodel
 private:
     static const int STATUS_COLORS[];
 
-    Fl_Box* boxes[GUESS_COUNT][WORD_SIZE];
+    Fl_Box* boxes[MAX_GUESSES][WORD_SIZE];
 
     int currentRow;
     int currentColumn;

@@ -1,6 +1,9 @@
 #ifndef WORDLECONTROLLER_H
 #define WORDLECONTROLLER_H
 
+#define WORD_SIZE 5
+#define MAX_GUESSES 6
+
 #include <string>
 using namespace std;
 

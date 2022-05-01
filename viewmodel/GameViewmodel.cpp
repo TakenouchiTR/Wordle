@@ -81,7 +81,7 @@ GameViewmodel::~GameViewmodel()
  */
 void GameViewmodel::addLetter(char letter)
 {
-    if (this->currentRow < GUESS_COUNT && this->controller->getGuess().size() < WORD_SIZE)
+    if (this->currentRow < MAX_GUESSES && this->controller->getGuess().size() < WORD_SIZE)
     {
         char output[1];
         output[0] = letter;
@@ -181,7 +181,7 @@ void GameViewmodel::makeGuess()
 void GameViewmodel::handleWin()
 {
     this->currentUser.addWin(this->currentRow + 1);
-    this->currentRow = GUESS_COUNT;
+    this->currentRow = MAX_GUESSES;
     this->currentColumn = WORD_SIZE;
 }
 
