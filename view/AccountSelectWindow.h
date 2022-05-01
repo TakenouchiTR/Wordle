@@ -27,17 +27,20 @@ private:
     vector<string> usernames;
     DialogResult result;
     Fl_Choice* nameChoice;
+    Fl_Choice* colorBlindChoice;
     Fl_Check_Button* uniqueLetterCheckButton;
     Fl_Button* selectButton;
     Fl_Button* newButton;
 
     void updateSelectedAccount();
     void nameChoiceSelectionChanged();
+    void colorBlindChoiceSelectionChanged();
     void uniqueLetterCheckButtonPressed();
     void selectButtonPressed();
     void newButtonPressed();
 
     static void cbNameChoiceSelectionChanged(Fl_Widget* widget, void* data);
+    static void cbColorBlindChoiceSelectionChanged(Fl_Widget* widget, void* data);
     static void cbUniqueLetterCheckButtonPressed(Fl_Widget* widget, void* data);
     static void cbSelectButtonPressed(Fl_Widget* widget, void* data);
     static void cbNewButtonPressed(Fl_Widget* widget, void* data);

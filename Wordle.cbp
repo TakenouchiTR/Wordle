@@ -51,13 +51,11 @@
 		<Unit filename="utils/Utils.h" />
 		<Unit filename="view/AccountSelectWindow.cpp" />
 		<Unit filename="view/AccountSelectWindow.h" />
+		<Unit filename="view/ColorBlindness.h" />
 		<Unit filename="view/WordleMainWindow.cpp" />
 		<Unit filename="view/WordleMainWindow.h" />
 		<Unit filename="viewmodel/GameViewmodel.cpp" />
 		<Unit filename="viewmodel/GameViewmodel.h" />
-		<Extensions>
-			<code_completion />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
