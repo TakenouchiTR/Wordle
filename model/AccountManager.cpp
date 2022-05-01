@@ -69,13 +69,13 @@ bool AccountManager::createAccount(const string& username)
         username - The username associated with the account.
     Return: The account associated with the username.
  */
-UserAccount& AccountManager::getAccount(const string& username)
+UserAccount* AccountManager::getAccount(const string& username)
 {
     if (!this->accountExists(username))
     {
         throw runtime_error("username \"" + username + "\" not found");
     }
-    return this->accounts[username];
+    return &this->accounts[username];
 }
 
 /**

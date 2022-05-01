@@ -50,7 +50,7 @@ UserAccount::~UserAccount()
  */
 void UserAccount::addWin(int moves)
 {
-    this->setWinCount(moves, this->winMoveDistribution[moves] + 1);
+    this->setWinCount(moves, this->winMoveDistribution[moves - 1] + 1);
     this->currentWinStreak++;
     this->gamesPlayed++;
     if (this->currentWinStreak > this->maxWinStreak)

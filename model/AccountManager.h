@@ -22,7 +22,7 @@ public:
 
     bool accountExists(const string& username);
     bool createAccount(const string& username);
-    UserAccount& getAccount(const string& username);
+    UserAccount* getAccount(const string& username);
     vector<string> getUsernames();
 
 protected:

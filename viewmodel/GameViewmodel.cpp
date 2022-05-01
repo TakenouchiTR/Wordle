@@ -180,7 +180,7 @@ void GameViewmodel::makeGuess()
  */
 void GameViewmodel::handleWin()
 {
-    this->currentUser.addWin(this->currentRow + 1);
+    this->currentUser->addWin(this->currentRow);
     this->currentRow = MAX_GUESSES;
     this->currentColumn = WORD_SIZE;
 }
@@ -204,7 +204,7 @@ void GameViewmodel::promptForAccount()
         }
     }
     this->currentUser = window.getAccount();
-    this->controller->setUsingUniqueLetters(this->currentUser.isUsingUniqueLetters());
+    this->controller->setUsingUniqueLetters(this->currentUser->isUsingUniqueLetters());
     this->controller->selectNewWord();
 
     AccountWriter writer;

@@ -64,7 +64,7 @@ AccountSelectWindow::~AccountSelectWindow()
 void AccountSelectWindow::updateSelectedAccount()
 {
     string username = this->usernames[this->nameChoice->value()];
-    this->selectedAccount = &this->accountManager->getAccount(username);
+    this->selectedAccount = this->accountManager->getAccount(username);
     this->uniqueLetterCheckButton->value(this->selectedAccount->isUsingUniqueLetters());
 }
 
@@ -86,7 +86,7 @@ void AccountSelectWindow::selectButtonPressed()
 {
     if (this->selectedAccount == 0)
     {
-        fl_alert("%s", "No account selected.\nPlease create an account to continue.");
+        fl_alert("No account selected.\nPlease create an account to continue.");
         return;
     }
     this->result = DialogResult::PRIMARY;
@@ -129,13 +129,13 @@ void AccountSelectWindow::newButtonPressed()
 
     Return: The selected account.
  */
-UserAccount& AccountSelectWindow::getAccount()
+UserAccount* AccountSelectWindow::getAccount()
 {
     if (this->selectedAccount == 0)
     {
         throw runtime_error("No accounts have been created.");
     }
-    return *this->selectedAccount;
+    return this->selectedAccount;
 }
 
 /**
