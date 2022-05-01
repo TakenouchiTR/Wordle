@@ -89,7 +89,7 @@ void AccountSelectWindow::selectButtonPressed()
         fl_alert("%s", "No account selected.\nPlease create an account to continue.");
         return;
     }
-    this->result = DialogResult::OKAY;
+    this->result = DialogResult::PRIMARY;
     this->hide();
 }
 
