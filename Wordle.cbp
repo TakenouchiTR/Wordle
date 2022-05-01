@@ -47,11 +47,11 @@
 		<Unit filename="model/Dictionary.h" />
 		<Unit filename="model/UserAccount.cpp" />
 		<Unit filename="model/UserAccount.h" />
+		<Unit filename="utils/ApplicationColors.h" />
 		<Unit filename="utils/Utils.cpp" />
 		<Unit filename="utils/Utils.h" />
 		<Unit filename="view/AccountSelectWindow.cpp" />
 		<Unit filename="view/AccountSelectWindow.h" />
-		<Unit filename="view/ColorBlindness.h" />
 		<Unit filename="view/WordleMainWindow.cpp" />
 		<Unit filename="view/WordleMainWindow.h" />
 		<Unit filename="viewmodel/GameViewmodel.cpp" />
