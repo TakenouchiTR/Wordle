@@ -177,6 +177,13 @@ void GameViewmodel::makeGuess()
     this->controller->clearGuess();
 }
 
+/**
+    Displays the game over screen, informs the user that they have won, updates their
+    statistics, and prevents any further input.
+
+    Precondition: None
+    Postcondition: The game over screen is displayed.
+ */
 void GameViewmodel::handleWin()
 {
     this->currentUser->addWin(this->currentRow);
@@ -189,6 +196,13 @@ void GameViewmodel::handleWin()
     this->displayGameoverWindow("You won!");
 }
 
+/**
+    Displays the game over screen, informs the user that they have lost, updates their
+    statistics, and prevents any further input.
+
+    Precondition: None
+    Postcondition: The game over screen is displayed.
+ */
 void GameViewmodel::handleLoss()
 {
     this->currentUser->addLoss();
