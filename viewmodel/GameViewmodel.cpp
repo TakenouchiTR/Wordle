@@ -377,14 +377,22 @@ void GameViewmodel::promptForAccount()
             Fl::wait();
         }
     }
-    this->currentUser = window.getAccount();
-    this->controller->setUsingUniqueLetters(this->currentUser->isUsingUniqueLetters());
-    this->controller->selectNewWord();
-    this->colorIndex = this->currentUser->getColorOption();
 
-    AccountWriter writer;
-    writer.writeFile(FILE_PATH, this->accountManager);
-    this->playingGame = true;
+    if (window.getResult() == DialogResult::PRIMARY)
+    {
+        this->currentUser = window.getAccount();
+        this->controller->setUsingUniqueLetters(this->currentUser->isUsingUniqueLetters());
+        this->controller->selectNewWord();
+        this->colorIndex = this->currentUser->getColorOption();
+
+        AccountWriter writer;
+        writer.writeFile(FILE_PATH, this->accountManager);
+        this->playingGame = true;
+    }
+    else
+    {
+        exit(0);
+    }
 }
 
 /**
