@@ -258,13 +258,13 @@ void GameViewmodel::resetGame()
         for (int col = 0; col < WORD_SIZE; col++)
         {
             this->boxes[row][col]->copy_label("");
-            this->boxes[row][col]->color(STATUS_COLORS[GuessStatus::UNKNOWN]);
+            this->boxes[row][col]->color(this->colors.getColors()[this->colorIndex][GuessStatus::UNKNOWN]);
         }
     }
 
     for (char letter = 'a'; letter <= 'z'; letter++)
     {
-        this->letterButtons[letter]->color(STATUS_COLORS[GuessStatus::UNKNOWN]);
+        this->letterButtons[letter]->color(this->colors.getColors()[this->colorIndex][GuessStatus::UNKNOWN]);
         this->letterStatuses[letter] = GuessStatus::UNKNOWN;
         this->letterButtons[letter]->redraw();
     }

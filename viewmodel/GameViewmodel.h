@@ -37,7 +37,7 @@ private:
 
     WordleController* controller;
     AccountManager accountManager;
-    UserAccount currentUser;
+    UserAccount* currentUser;
     int colorIndex;
     ApplicationColors colors;
 
