@@ -30,6 +30,7 @@ class GameViewmodel
 private:
     Fl_Box* boxes[MAX_GUESSES][WORD_SIZE];
 
+    bool playingGame;
     int currentRow;
     int currentColumn;
     unordered_map<char, Fl_Button*> letterButtons;
@@ -41,12 +42,13 @@ private:
     int colorIndex;
     ApplicationColors colors;
 
-    Fl_Box* getCurrentBox();
     void setupColors();
-    void resetGame();
+    void resetUI();
     void handleWin();
     void handleLoss();
+    void saveGame();
     void displayGameoverWindow(const string& title);
+    Fl_Box* getCurrentBox();
 
 public:
     GameViewmodel();
@@ -56,6 +58,9 @@ public:
     void addLetter(char letter);
     void removeLetter();
     void makeGuess();
+    void restartGame();
+    void switchUsers();
+    bool quitGame();
     void setBox(int row, int col, Fl_Box* box);
     void setLetterButton(char letter, Fl_Button* letterButton);
 

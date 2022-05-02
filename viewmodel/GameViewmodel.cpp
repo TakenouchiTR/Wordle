@@ -47,6 +47,7 @@ GameViewmodel::GameViewmodel(WordleController* controller)
         throw runtime_error("controller must not be null");
     }
 
+    this->playingGame = false;
     this->controller = controller;
     this->currentRow = 0;
     this->currentColumn = 0;
@@ -186,6 +187,88 @@ void GameViewmodel::makeGuess()
 }
 
 /**
+    Asks if the user wishes to end the current game and start a new one. If answered yes, then
+    a loss is added to the user's account and a new game is started.
+
+    Precondition: None
+    Postcondition: If the user chooses to restart, a loss is added to their account and the a new
+                   game is started; otherwise None.
+ */
+void GameViewmodel::restartGame()
+{
+    int selectedOption = fl_choice(
+        "Are you sure you would you restart the game?\nRestarting a game will give you a new word and count as a loss.",
+        "Restart Game",
+        "Continue Game",
+        0
+    );
+    if (selectedOption == 0)
+    {
+        this->currentUser->addLoss();
+        this->saveGame();
+        this->resetUI();
+        this->controller->selectNewWord();
+    }
+}
+
+/**
+    Asks if the user wishes to end the current game to switch to a new user. If answered yes, then
+    a loss is added to the user's account and the account selection screen is shown.
+
+    Precondition: None
+    Postcondition: If the user chooses to switch users, a loss is added to their account and the select
+                   user screen is shown; otherwise None.
+ */
+void GameViewmodel::switchUsers()
+{
+    int selectedOption = fl_choice(
+        "Are you sure you would you like to switch users?\nSwitching users during a game will count as a loss.",
+        "Switch Users",
+        "Continue Game",
+        0
+    );
+    if (selectedOption == 0)
+    {
+        this->currentUser->addLoss();
+        this->saveGame();
+        this->resetUI();
+        this->promptForAccount();
+    }
+}
+
+/**
+    Attempts to close the application. If a game is running, it prompts the user if they wish to quit
+    the game. If the user chooses to quit and is in a game, then a loss is added to their account.
+
+    Precondition: None
+    Postcondition: None
+
+    Return: Whether the user chose to quit the application.
+ */
+bool GameViewmodel::quitGame()
+{
+    if (!this->playingGame)
+    {
+        return true;
+    }
+
+    int dialogResult = fl_choice(
+        "Are you sure you want to quit the application?\nYour current game will count as a loss.",
+        "Quit",
+        "Continue Game",
+        0
+    );
+
+    if (dialogResult == 0)
+    {
+        this->currentUser->addLoss();
+        this->saveGame();
+    }
+
+    return dialogResult == 0;
+}
+
+/**
     Displays the game over screen, informs the user that they have won, updates their
     statistics, and prevents any further input.
 
@@ -198,8 +281,7 @@ void GameViewmodel::handleWin()
     this->currentRow = MAX_GUESSES;
     this->currentColumn = WORD_SIZE;
 
-    AccountWriter writer;
-    writer.writeFile(FILE_PATH, this->accountManager);
+    this->saveGame();
 
     this->displayGameoverWindow("You won!");
 }
@@ -217,14 +299,14 @@ void GameViewmodel::handleLoss()
     this->currentRow = MAX_GUESSES;
     this->currentColumn = WORD_SIZE;
 
-    AccountWriter writer;
-    writer.writeFile(FILE_PATH, this->accountManager);
+    this->saveGame();
 
     this->displayGameoverWindow("Game Over");
 }
 
 void GameViewmodel::displayGameoverWindow(const string& title)
 {
+    this->playingGame = false;
     GameOverWindow window(this->currentUser, title);
     window.set_modal();
     while (window.getResult() == DialogResult::CANCELLED)
@@ -236,11 +318,12 @@ void GameViewmodel::displayGameoverWindow(const string& title)
         }
     }
 
-    this->resetGame();
+    this->resetUI();
 
     if (window.getResult() == DialogResult::PRIMARY)
     {
         this->controller->selectNewWord();
+        this->playingGame = true;
     }
     else
     {
@@ -248,7 +331,7 @@ void GameViewmodel::displayGameoverWindow(const string& title)
     }
 }
 
-void GameViewmodel::resetGame()
+void GameViewmodel::resetUI()
 {
     this->currentRow = 0;
     this->currentColumn = 0;
@@ -268,6 +351,12 @@ void GameViewmodel::resetGame()
         this->letterStatuses[letter] = GuessStatus::UNKNOWN;
         this->letterButtons[letter]->redraw();
     }
+}
+
+void GameViewmodel::saveGame()
+{
+    AccountWriter writer;
+    writer.writeFile(FILE_PATH, this->accountManager);
 }
 
 /**
@@ -295,6 +384,7 @@ void GameViewmodel::promptForAccount()
 
     AccountWriter writer;
     writer.writeFile(FILE_PATH, this->accountManager);
+    this->playingGame = true;
 }
 
 /**
