@@ -15,6 +15,9 @@ using namespace controller;
 
 #include "GuessStatus.h"
 
+#include "ApplicationColors.h"
+using namespace utils;
+
 #include "AccountManager.h"
 #include "UserAccount.h"
 using namespace model;
@@ -25,8 +28,6 @@ namespace viewmodel
 class GameViewmodel
 {
 private:
-    static const int STATUS_COLORS[];
-
     Fl_Box* boxes[MAX_GUESSES][WORD_SIZE];
 
     int currentRow;
@@ -37,8 +38,11 @@ private:
     WordleController* controller;
     AccountManager accountManager;
     UserAccount* currentUser;
+    int colorIndex;
+    ApplicationColors colors;
 
     Fl_Box* getCurrentBox();
+    void setupColors();
     void resetGame();
     void handleWin();
     void handleLoss();

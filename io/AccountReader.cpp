@@ -66,9 +66,10 @@ AccountManager AccountReader::readFile(const string& filePath)
             int currentWinStreak = toInt(lineData[2], "Could not convert string to int");
             int maxWinStreak = toInt(lineData[3], "Could not convert string to int");
             bool useUniqueLetters = toInt(lineData[4], "Could not convert string to int");
+            int colorOption = toInt(lineData[5], "Could not convert string to int");
             for (int i = 0; i < MOVE_COUNT; i++)
             {
-                winDistribution[i] = toInt(lineData[5 + i], "Could not convert string to int");
+                winDistribution[i] = toInt(lineData[6 + i], "Could not convert string to int");
             }
 
             accountManager.createAccount(username);
@@ -78,6 +79,7 @@ AccountManager AccountReader::readFile(const string& filePath)
             account->setCurrentWinStreak(currentWinStreak);
             account->setMaxWinStreak(maxWinStreak);
             account->setUsingUniqueLetters(useUniqueLetters);
+            account->setColorOption(colorOption);
             for (int i = 0; i < MOVE_COUNT; i++)
             {
                 account->setWinCount(i + 1, winDistribution[i]);

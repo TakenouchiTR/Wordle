@@ -16,6 +16,9 @@ using namespace model;
 
 #include "DialogResult.h"
 
+#include "ApplicationColors.h"
+using namespace utils;
+
 namespace view
 {
 
@@ -27,23 +30,26 @@ private:
     vector<string> usernames;
     DialogResult result;
     Fl_Choice* nameChoice;
+    Fl_Choice* colorChoice;
     Fl_Check_Button* uniqueLetterCheckButton;
     Fl_Button* selectButton;
     Fl_Button* newButton;
 
     void updateSelectedAccount();
     void nameChoiceSelectionChanged();
+    void colorChoiceSelectionChanged();
     void uniqueLetterCheckButtonPressed();
     void selectButtonPressed();
     void newButtonPressed();
 
     static void cbNameChoiceSelectionChanged(Fl_Widget* widget, void* data);
+    static void cbColorChoiceSelectionChanged(Fl_Widget* widget, void* data);
     static void cbUniqueLetterCheckButtonPressed(Fl_Widget* widget, void* data);
     static void cbSelectButtonPressed(Fl_Widget* widget, void* data);
     static void cbNewButtonPressed(Fl_Widget* widget, void* data);
 
 public:
-    AccountSelectWindow(AccountManager* accountManager);
+    AccountSelectWindow(AccountManager* accountManager, vector<string> colorChoices);
     virtual ~AccountSelectWindow();
 
     UserAccount *getAccount();

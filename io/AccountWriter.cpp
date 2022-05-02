@@ -48,7 +48,8 @@ void AccountWriter::writeFile(const string& filePath, AccountManager& accountMan
                    << account->getGamesPlayed() << ","
                    << account->getCurrentWinStreak() << ","
                    << account->getMaxWinStreak() << ","
-                   << (int)account->isUsingUniqueLetters();
+                   << (int)account->isUsingUniqueLetters() << ","
+                   << account->getColorOption();
         for (unsigned int i = 1; i <= MOVE_COUNT; i++)
         {
             fileStream << "," << account->getWinCount(i);
