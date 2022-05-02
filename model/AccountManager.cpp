@@ -59,15 +59,33 @@ bool AccountManager::createAccount(const string& username)
     return true;
 }
 
-UserAccount& AccountManager::getAccount(const string& username)
+/**
+    Gets the acocunt associated with a specified username.
+
+    Precondition: this->accountExists(username)
+    Postcondition: None
+
+    Params:
+        username - The username associated with the account.
+    Return: The account associated with the username.
+ */
+UserAccount* AccountManager::getAccount(const string& username)
 {
     if (!this->accountExists(username))
     {
         throw runtime_error("username \"" + username + "\" not found");
     }
-    return this->accounts[username];
+    return &this->accounts[username];
 }
 
+/**
+    Gets all of the usernames as a vector.
+
+    Precondition: None
+    Postcondition: None
+
+    Return: A vector containing all usernames.
+ */
 vector<string> AccountManager::getUsernames()
 {
     vector<string> keys;

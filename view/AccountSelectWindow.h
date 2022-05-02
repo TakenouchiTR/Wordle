@@ -54,7 +54,7 @@ public:
     AccountSelectWindow(AccountManager* accountManager, vector<string> colorChoices);
     virtual ~AccountSelectWindow();
 
-    UserAccount& getAccount();
+    UserAccount *getAccount();
     DialogResult getResult();
     int getColorIndex();
 

@@ -49,7 +49,7 @@ WordleMainWindow::WordleMainWindow(int width, int height, const char* title, Wor
 
 WordleMainWindow::~WordleMainWindow()
 {
-    for (int i = 0; i < GUESS_COUNT; ++i)
+    for (int i = 0; i < MAX_GUESSES; ++i)
     {
         for (int j = 0; j < WORD_SIZE; ++j)
         {
@@ -70,7 +70,7 @@ void WordleMainWindow::createLetterGrid()
     int xIncrement = boxSquareSize + 5;
     int yIncrement = boxSquareSize + 10;
 
-    for (int i = 0; i < GUESS_COUNT; ++i)
+    for (int i = 0; i < MAX_GUESSES; ++i)
     {
         int boxXPosition = 50;
         for (int j = 0; j < WORD_SIZE; ++j)

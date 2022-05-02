@@ -72,15 +72,15 @@ AccountManager AccountReader::readFile(const string& filePath)
             }
 
             accountManager.createAccount(username);
-            UserAccount account = accountManager.getAccount(username);
+            UserAccount* account = accountManager.getAccount(username);
 
-            account.setGamesPlayed(gamesPlayed);
-            account.setCurrentWinStreak(currentWinStreak);
-            account.setMaxWinStreak(maxWinStreak);
-            account.setUsingUniqueLetters(useUniqueLetters);
+            account->setGamesPlayed(gamesPlayed);
+            account->setCurrentWinStreak(currentWinStreak);
+            account->setMaxWinStreak(maxWinStreak);
+            account->setUsingUniqueLetters(useUniqueLetters);
             for (int i = 0; i < MOVE_COUNT; i++)
             {
-                account.setWinCount(i + 1, winDistribution[i]);
+                account->setWinCount(i + 1, winDistribution[i]);
             }
         }
         catch (exception& e)

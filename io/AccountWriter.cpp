@@ -43,15 +43,15 @@ void AccountWriter::writeFile(const string& filePath, AccountManager& accountMan
 
     for (const string& username : accountManager.getUsernames())
     {
-        UserAccount account = accountManager.getAccount(username);
-        fileStream << account.getUsername() << ","
-                   << account.getGamesPlayed() << ","
-                   << account.getCurrentWinStreak() << ","
-                   << account.getMaxWinStreak() << ","
-                   << (int)account.isUsingUniqueLetters();
+        UserAccount* account = accountManager.getAccount(username);
+        fileStream << account->getUsername() << ","
+                   << account->getGamesPlayed() << ","
+                   << account->getCurrentWinStreak() << ","
+                   << account->getMaxWinStreak() << ","
+                   << (int)account->isUsingUniqueLetters();
         for (unsigned int i = 1; i <= MOVE_COUNT; i++)
         {
-            fileStream << "," << account.getWinCount(i);
+            fileStream << "," << account->getWinCount(i);
         }
         fileStream << endl;
     }

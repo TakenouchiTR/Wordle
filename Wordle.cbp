@@ -53,6 +53,9 @@
 		<Unit filename="utils/Utils.h" />
 		<Unit filename="view/AccountSelectWindow.cpp" />
 		<Unit filename="view/AccountSelectWindow.h" />
+		<Unit filename="view/DialogResult.h" />
+		<Unit filename="view/GameOverWindow.cpp" />
+		<Unit filename="view/GameOverWindow.h" />
 		<Unit filename="view/WordleMainWindow.cpp" />
 		<Unit filename="view/WordleMainWindow.h" />
 		<Unit filename="viewmodel/GameViewmodel.cpp" />

@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <unistd.h>
 using namespace std;
 
 #include "AccountReader.h"
@@ -11,6 +12,7 @@ using namespace std;
 using namespace io;
 
 #include "AccountSelectWindow.h"
+#include "GameOverWindow.h"
 using namespace view;
 
 #include "Utils.h"
@@ -89,7 +91,7 @@ void GameViewmodel::setupColors()
  */
 void GameViewmodel::addLetter(char letter)
 {
-    if (this->currentRow < GUESS_COUNT && this->controller->getGuess().size() < WORD_SIZE)
+    if (this->currentRow < MAX_GUESSES && this->controller->getGuess().size() < WORD_SIZE)
     {
         char output[1];
         output[0] = letter;
@@ -176,6 +178,10 @@ void GameViewmodel::makeGuess()
     {
         this->handleWin();
     }
+    else if (currentRow == MAX_GUESSES)
+    {
+        this->handleLoss();
+    }
     this->controller->clearGuess();
 }
 
@@ -188,9 +194,80 @@ void GameViewmodel::makeGuess()
  */
 void GameViewmodel::handleWin()
 {
-    this->currentUser.addWin(this->currentRow + 1);
-    this->currentRow = GUESS_COUNT;
+    this->currentUser->addWin(this->currentRow);
+    this->currentRow = MAX_GUESSES;
     this->currentColumn = WORD_SIZE;
+
+    AccountWriter writer;
+    writer.writeFile(FILE_PATH, this->accountManager);
+
+    this->displayGameoverWindow("You won!");
+}
+
+/**
+    Displays the game over screen, informs the user that they have lost, updates their
+    statistics, and prevents any further input.
+
+    Precondition: None
+    Postcondition: The game over screen is displayed.
+ */
+void GameViewmodel::handleLoss()
+{
+    this->currentUser->addLoss();
+    this->currentRow = MAX_GUESSES;
+    this->currentColumn = WORD_SIZE;
+
+    AccountWriter writer;
+    writer.writeFile(FILE_PATH, this->accountManager);
+
+    this->displayGameoverWindow("Game Over");
+}
+
+void GameViewmodel::displayGameoverWindow(const string& title)
+{
+    GameOverWindow window(this->currentUser, title);
+    window.set_modal();
+    while (window.getResult() == DialogResult::CANCELLED)
+    {
+        window.show();
+        while(window.shown())
+        {
+            Fl::wait();
+        }
+    }
+
+    this->resetGame();
+
+    if (window.getResult() == DialogResult::PRIMARY)
+    {
+        this->controller->selectNewWord();
+    }
+    else
+    {
+        this->promptForAccount();
+    }
+}
+
+void GameViewmodel::resetGame()
+{
+    this->currentRow = 0;
+    this->currentColumn = 0;
+
+    for (int row = 0; row < MAX_GUESSES; row++)
+    {
+        for (int col = 0; col < WORD_SIZE; col++)
+        {
+            this->boxes[row][col]->copy_label("");
+            this->boxes[row][col]->color(STATUS_COLORS[GuessStatus::UNKNOWN]);
+        }
+    }
+
+    for (char letter = 'a'; letter <= 'z'; letter++)
+    {
+        this->letterButtons[letter]->color(STATUS_COLORS[GuessStatus::UNKNOWN]);
+        this->letterStatuses[letter] = GuessStatus::UNKNOWN;
+        this->letterButtons[letter]->redraw();
+    }
 }
 
 /**
@@ -212,7 +289,7 @@ void GameViewmodel::promptForAccount()
         }
     }
     this->currentUser = window.getAccount();
-    this->controller->setUsingUniqueLetters(this->currentUser.isUsingUniqueLetters());
+    this->controller->setUsingUniqueLetters(this->currentUser->isUsingUniqueLetters());
     this->controller->selectNewWord();
     this->colorIndex = window.getColorIndex();
 

@@ -2,8 +2,6 @@
 #define GAMEVIEWMODEL_H
 
 #define FILE_PATH "data.csv"
-#define WORD_SIZE 5
-#define GUESS_COUNT 6
 
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
@@ -30,7 +28,7 @@ namespace viewmodel
 class GameViewmodel
 {
 private:
-    Fl_Box* boxes[GUESS_COUNT][WORD_SIZE];
+    Fl_Box* boxes[MAX_GUESSES][WORD_SIZE];
 
     int currentRow;
     int currentColumn;
@@ -45,17 +43,19 @@ private:
 
     Fl_Box* getCurrentBox();
     void setupColors();
+    void resetGame();
+    void handleWin();
+    void handleLoss();
+    void displayGameoverWindow(const string& title);
 
 public:
     GameViewmodel();
     GameViewmodel(WordleController* controller);
     virtual ~GameViewmodel();
-
+    void promptForAccount();
     void addLetter(char letter);
     void removeLetter();
     void makeGuess();
-    void handleWin();
-    void promptForAccount();
     void setBox(int row, int col, Fl_Box* box);
     void setLetterButton(char letter, Fl_Button* letterButton);
 
