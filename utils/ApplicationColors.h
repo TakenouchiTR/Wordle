@@ -13,20 +13,21 @@ Version: Spring 2022
 */
 namespace utils
 {
+    
 class ApplicationColors
 {
+private:
+    vector<string> titles;
+    vector<vector<int>> colors;
+
 public:
     ApplicationColors();
     virtual ~ApplicationColors();
     void addColorSetting(const string& title, const vector<int>& colors);
     vector<string> getTitles() const;
     vector<vector<int>> getColors() const;
-
-private:
-    vector<string> titles;
-    vector<vector<int>> colors;
-
 };
+    
 }
 
 #endif // APPLICATIONCOLORS_H
