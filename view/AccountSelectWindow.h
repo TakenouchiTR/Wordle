@@ -16,6 +16,9 @@ using namespace model;
 
 #include "DialogResult.h"
 
+#include "ApplicationColors.h"
+using namespace utils;
+
 namespace view
 {
 
@@ -31,6 +34,8 @@ private:
     Fl_Check_Button* uniqueLetterCheckButton;
     Fl_Button* selectButton;
     Fl_Button* newButton;
+
+    ApplicationColors::ColorBlindnessOption colorBlindess;
 
     void updateSelectedAccount();
     void nameChoiceSelectionChanged();
@@ -51,6 +56,7 @@ public:
 
     UserAccount& getAccount();
     DialogResult getResult();
+    ApplicationColors::ColorBlindnessOption getColorBlindnessIndex();
 
 protected:
 

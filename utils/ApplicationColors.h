@@ -3,36 +3,47 @@
 #define NUMBER_OF_COLOR_BLINDNESS_OPTIONS 4
 #define NUMBER_OF_APPLICATION_COLORS 4
 
+#include <string>
+using namespace std;
+
 /**
 Data pertaining to the colors of the application.
 
 Author: Alexander Ayers
 Version: Spring 2022
 */
-namespace view
+namespace utils
 {
 class ApplicationColors
 {
 public:
     /**
-    Controlled-Value
+    Controlled-Value for Color-Blindness
     */
-    enum ColorBlindnessOptions
+    enum ColorBlindnessOption
     {
+        /**
+        Default Values for Colors
+        */
         NORMAL_VISION,
+        /**
+        Color-Blindness that Can't see Red.
+        */
         DEUTERANOPIA,
+        /**
+        Color-Blindness that Can't see Green.
+        */
         PROTANOPIA,
+        /**
+        Color-Blindness that Can't see Blue.
+        */
         TRITANOPIA
     };
-    static const string& COLOR_BLINDNESS_TEXT[NUMBER_OF_COLOR_BLINDNESS_OPTIONS] = {"Normal Vision", "Deuteranopia", "Protanopia", "Tritanopia"};
-    static const int[NUMBER_OF_COLOR_BLINDNESS_OPTIONS][NUMBER_OF_APPLICATION_COLORS] STATUS_COLORS = {NORMAL_VISION_COLORS, DEUTERANOPIA_COLORS, PROTANOPIA_COLORS, TRITANOPIA_COLORS}
-
-private:
-    static const int NORMAL_VISION_COLORS[NUMBER_OF_APPLICATION_COLORS] = {49, 45, 95, 63}
-    static const int DEUTERANOPIA_COLORS[NUMBER_OF_APPLICATION_COLORS] = {49, 45, 124, 175}
-    static const int PROTANOPIA_COLORS[NUMBER_OF_APPLICATION_COLORS] = {49, 45, 84, 95}
-    static const int TRITANOPIA_COLORS[NUMBER_OF_APPLICATION_COLORS] = {49, 45, 253, 191}
-
+    static const string COLOR_BLINDNESS_TEXT[];
+    /**
+    Two-Dimensional Array containing each set of colors for the statuses for each color-blindness setting.
+    */
+    static const int STATUS_COLORS[NUMBER_OF_COLOR_BLINDNESS_OPTIONS][NUMBER_OF_APPLICATION_COLORS];
 
 
 };

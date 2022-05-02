@@ -1,5 +1,8 @@
 #include "AccountSelectWindow.h"
 
+#define WINDOW_WIDTH 240
+#define WINDOW_HEIGHT 155
+
 #include <FL/fl_ask.H>
 
 #include <stdexcept>
@@ -8,6 +11,9 @@ using namespace std;
 
 #include "UserAccount.h"
 using namespace model;
+
+#include "ApplicationColors.h"
+using namespace utils;
 
 namespace view
 {
@@ -19,7 +25,7 @@ namespace view
                    this->getAccount() is a "random" account in accountManager if accounts
                         exist, otherwise it is null.
  */
-AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager) : Fl_Window(240, 135, "User Select")
+AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager) : Fl_Window(WINDOW_WIDTH, WINDOW_HEIGHT, "User Select")
 {
     this->accountManager = accountManager;
     this->usernames = accountManager->getUsernames();
@@ -28,11 +34,13 @@ AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager) : Fl_Wi
 
     begin();
     this->nameChoice = new Fl_Choice(55, 20, 165, 20, "User");
-    this->uniqueLetterCheckButton = new Fl_Check_Button(20, 50, 200, 20, "Use only unique letters");
-    this->selectButton = new Fl_Button(20, 95, 80, 20, "Select");
-    this->newButton = new Fl_Button(140, 95, 80, 20, "New");
+    this->colorBlindChoice = new Fl_Choice(55, 60, 165, 20, "Color");
+    this->uniqueLetterCheckButton = new Fl_Check_Button(20, 90, 200, 20, "Use only unique letters");
+    this->selectButton = new Fl_Button(20, 115, 80, 20, "Select");
+    this->newButton = new Fl_Button(140, 115, 80, 20, "New");
 
     this->nameChoice->callback(cbNameChoiceSelectionChanged, this);
+    this->colorBlindChoice->callback(cbColorBlindChoiceSelectionChanged, this);
     this->uniqueLetterCheckButton->callback(cbUniqueLetterCheckButtonPressed, this);
     this->selectButton->callback(cbSelectButtonPressed, this);
     this->newButton->callback(cbNewButtonPressed, this);
@@ -41,6 +49,13 @@ AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager) : Fl_Wi
     {
         this->nameChoice->add(username.c_str());
     }
+
+    for (int i = 0; i < NUMBER_OF_COLOR_BLINDNESS_OPTIONS; i++)
+    {
+        this->colorBlindChoice->add(ApplicationColors::COLOR_BLINDNESS_TEXT[i].c_str());
+    }
+
+    this->colorBlindChoice->value(0);
 
     if (this->usernames.size() > 0)
     {
@@ -56,6 +71,7 @@ AccountSelectWindow::~AccountSelectWindow()
     delete(this->uniqueLetterCheckButton);
     delete(this->selectButton);
     delete(this->newButton);
+    delete(this->nameChoice);
 }
 
 void AccountSelectWindow::updateSelectedAccount()
@@ -68,6 +84,11 @@ void AccountSelectWindow::updateSelectedAccount()
 void AccountSelectWindow::nameChoiceSelectionChanged()
 {
     this->updateSelectedAccount();
+}
+
+void AccountSelectWindow::colorBlindChoiceSelectionChanged()
+{
+    this->colorBlindess = static_cast<ApplicationColors::ColorBlindnessOption>(this->colorBlindChoice->value());
 }
 
 void AccountSelectWindow::uniqueLetterCheckButtonPressed()
@@ -148,6 +169,11 @@ DialogResult AccountSelectWindow::getResult()
     return this->result;
 }
 
+ApplicationColors::ColorBlindnessOption AccountSelectWindow::getColorBlindnessIndex()
+{
+    return this->colorBlindess;
+}
+
 void AccountSelectWindow::cbNameChoiceSelectionChanged(Fl_Widget* widget, void* data)
 {
     ((AccountSelectWindow*) data)->nameChoiceSelectionChanged();
@@ -161,6 +187,7 @@ void AccountSelectWindow::cbUniqueLetterCheckButtonPressed(Fl_Widget* widget, vo
 void AccountSelectWindow::cbSelectButtonPressed(Fl_Widget* widget, void* data)
 {
     ((AccountSelectWindow*) data)->selectButtonPressed();
+    cout << "End of Select" << endl;
 }
 
 void AccountSelectWindow::cbNewButtonPressed(Fl_Widget* widget, void* data)
@@ -168,4 +195,8 @@ void AccountSelectWindow::cbNewButtonPressed(Fl_Widget* widget, void* data)
     ((AccountSelectWindow*) data)->newButtonPressed();
 }
 
+void AccountSelectWindow::cbColorBlindChoiceSelectionChanged(Fl_Widget* widget, void* data)
+{
+    ((AccountSelectWindow*) data)->colorBlindChoiceSelectionChanged();
+}
 }

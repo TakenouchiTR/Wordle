@@ -209,6 +209,7 @@ void GameViewmodel::promptForAccount()
 
     AccountWriter writer;
     writer.writeFile(FILE_PATH, this->accountManager);
+    cout << "End of Promp for Account" << endl;
 }
 
 /**

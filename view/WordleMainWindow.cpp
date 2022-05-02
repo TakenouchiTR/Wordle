@@ -119,6 +119,7 @@ void WordleMainWindow::show()
 {
     Fl_Window::show();
     this->viewmodel->promptForAccount();
+    cout << "End of WordleMainWIndow show" << endl;
 }
 
 int WordleMainWindow::handle(int event)
