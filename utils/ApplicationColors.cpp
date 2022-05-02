@@ -18,6 +18,7 @@ ApplicationColors::ApplicationColors()
 {
     //ctor
 }
+
 ApplicationColors::~ApplicationColors()
 {
     //dtor
