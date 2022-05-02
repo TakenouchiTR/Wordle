@@ -18,8 +18,6 @@ using namespace view;
 namespace viewmodel
 {
 
-const int GameViewmodel::STATUS_COLORS[4] = {49, 45, 95, 63};
-
 /**
     Creates an instance of GameViewmodel.
 
@@ -50,6 +48,8 @@ GameViewmodel::GameViewmodel(WordleController* controller)
     this->controller = controller;
     this->currentRow = 0;
     this->currentColumn = 0;
+    this->colorIndex = 0;
+    setupColors();
 
     if (fileExists(FILE_PATH))
     {
@@ -68,6 +68,14 @@ GameViewmodel::GameViewmodel(WordleController* controller)
 GameViewmodel::~GameViewmodel()
 {
     delete this->controller;
+}
+
+void GameViewmodel::setupColors()
+{
+    this->colors.addColorSetting("Normal Vision", {FL_GRAY, FL_DARK2, FL_YELLOW, FL_GREEN});
+    this->colors.addColorSetting("Deuteranopia", {FL_GRAY, FL_DARK2, 124, 175});
+    this->colors.addColorSetting("Protanopia", {FL_GRAY, FL_DARK2, 84, FL_YELLOW});
+    this->colors.addColorSetting("Tritanopia", {FL_GRAY, FL_DARK2, 253, 191});
 }
 
 /**
@@ -150,14 +158,14 @@ void GameViewmodel::makeGuess()
             correctLetters++;
         }
 
-        this->boxes[this->currentRow][i]->color(STATUS_COLORS[status]);
+        this->boxes[this->currentRow][i]->color(this->colors.getColors()[this->colorIndex][status]);
         this->boxes[this->currentRow][i]->redraw();
 
         if (status > this->letterStatuses[letter])
         {
             this->letterStatuses[letter] = status;
         }
-        this->letterButtons[letter]->color(STATUS_COLORS[this->letterStatuses[letter]]);
+        this->letterButtons[letter]->color(this->colors.getColors()[this->colorIndex][this->letterStatuses[letter]]);
         this->letterButtons[letter]->redraw();
     }
 
@@ -193,7 +201,7 @@ void GameViewmodel::handleWin()
  */
 void GameViewmodel::promptForAccount()
 {
-    AccountSelectWindow window(&this->accountManager);
+    AccountSelectWindow window(&this->accountManager, this->colors.getTitles());
     window.set_modal();
     while (window.getResult() == DialogResult::CANCELLED)
     {
@@ -206,10 +214,10 @@ void GameViewmodel::promptForAccount()
     this->currentUser = window.getAccount();
     this->controller->setUsingUniqueLetters(this->currentUser.isUsingUniqueLetters());
     this->controller->selectNewWord();
+    this->colorIndex = window.getColorIndex();
 
     AccountWriter writer;
     writer.writeFile(FILE_PATH, this->accountManager);
-    cout << "End of Promp for Account" << endl;
 }
 
 /**
