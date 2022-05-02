@@ -35,8 +35,6 @@ private:
     Fl_Button* selectButton;
     Fl_Button* newButton;
 
-    int color;
-
     void updateSelectedAccount();
     void nameChoiceSelectionChanged();
     void colorChoiceSelectionChanged();
@@ -56,7 +54,6 @@ public:
 
     UserAccount *getAccount();
     DialogResult getResult();
-    int getColorIndex();
 
 protected:
 

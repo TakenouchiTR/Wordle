@@ -291,7 +291,7 @@ void GameViewmodel::promptForAccount()
     this->currentUser = window.getAccount();
     this->controller->setUsingUniqueLetters(this->currentUser->isUsingUniqueLetters());
     this->controller->selectNewWord();
-    this->colorIndex = window.getColorIndex();
+    this->colorIndex = this->currentUser->getColorOption();
 
     AccountWriter writer;
     writer.writeFile(FILE_PATH, this->accountManager);

@@ -223,6 +223,33 @@ void UserAccount::setUsingUniqueLetters(bool useUniqueLetters)
 }
 
 /**
+    Gets the color option.
+
+    Precondition: None
+    Postcondition: None
+
+    Return: The color option.
+ */
+int UserAccount::getColorOption()
+{
+    return this->colorOption;
+}
+
+/**
+    Sets the color option.
+
+    Precondition: None
+    Postcondition: this->isUsingUniqueLetters() == useUniqueLetters
+
+    Params:
+        colorOption - The color option.
+ */
+void UserAccount::setColorOption(int colorOption)
+{
+    this->colorOption = colorOption;
+}
+
+/**
     Gets the number of times the account has won with a specified number of moves.
 
     Precondition: None

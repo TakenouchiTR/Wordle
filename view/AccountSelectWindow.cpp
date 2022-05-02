@@ -56,7 +56,6 @@ AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager, vector<
     }
 
     this->colorChoice->value(0);
-    this->color = 0;
 
     if (this->usernames.size() > 0)
     {
@@ -80,6 +79,7 @@ void AccountSelectWindow::updateSelectedAccount()
     string username = this->usernames[this->nameChoice->value()];
     this->selectedAccount = this->accountManager->getAccount(username);
     this->uniqueLetterCheckButton->value(this->selectedAccount->isUsingUniqueLetters());
+    this->colorChoice->value(this->selectedAccount->getColorOption());
 }
 
 void AccountSelectWindow::nameChoiceSelectionChanged()
@@ -89,8 +89,7 @@ void AccountSelectWindow::nameChoiceSelectionChanged()
 
 void AccountSelectWindow::colorChoiceSelectionChanged()
 {
-    this->color = this->colorChoice->value();
-    cout << to_string(this->color) << endl;
+    this->selectedAccount->setColorOption(this->colorChoice->value());
 }
 
 void AccountSelectWindow::uniqueLetterCheckButtonPressed()
@@ -169,19 +168,6 @@ UserAccount* AccountSelectWindow::getAccount()
 DialogResult AccountSelectWindow::getResult()
 {
     return this->result;
-}
-
-/**
-    Gets the index for which colors to use for the statuses.
-
-    Precondition: None
-    Postcondition: None
-
-    Return: The index for which colors to use for the statuses.
-*/
-int AccountSelectWindow::getColorIndex()
-{
-    return this->color;
 }
 
 void AccountSelectWindow::cbNameChoiceSelectionChanged(Fl_Widget* widget, void* data)

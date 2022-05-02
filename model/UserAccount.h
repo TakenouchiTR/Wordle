@@ -18,6 +18,7 @@ private:
     int maxWinStreak;
     int winMoveDistribution[MOVE_COUNT];
     bool useUniqueLetters;
+    int colorOption;
 
 public:
     /**
@@ -48,6 +49,8 @@ public:
     void setMaxWinStreak(int streak);
     bool isUsingUniqueLetters();
     void setUsingUniqueLetters(bool useUniqueLetters);
+    int getColorOption();
+    void setColorOption(int colorOption);
     int getWinCount(int moves);
     void setWinCount(int moves, int wins);
     int getTotalWinCount();
