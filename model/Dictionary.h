@@ -3,6 +3,7 @@
 
 #include <string>
 #include <unordered_set>
+#include <vector>
 using namespace std;
 
 namespace model
@@ -11,7 +12,9 @@ namespace model
 class Dictionary
 {
 private:
-    unordered_set<string> words;
+    vector<string> allWords;
+    vector<string> wordsWithoutDuplicates;
+    unordered_set<string> wordLookup;
 
 public:
     Dictionary(unordered_set<string>& words);

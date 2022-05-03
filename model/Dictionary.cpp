@@ -19,7 +19,34 @@ namespace model
  */
 Dictionary::Dictionary(unordered_set<string>& words)
 {
-    this->words = words;
+    unsigned int wordCount = words.size();
+    this->wordLookup = words;
+
+    unordered_set<char> characters;
+    for (const string& word : words)
+    {
+        allWords.push_back(word);
+
+        characters.clear();
+
+        bool hasDuplicates = false;
+        for (unsigned int i = 0; i < word.size(); i++)
+        {
+            if (characters.find(word[i]) == characters.end())
+            {
+                characters.insert(word[i]);
+            }
+            else
+            {
+                hasDuplicates = true;
+                break;
+            }
+        }
+        if (!hasDuplicates)
+        {
+            this->wordsWithoutDuplicates.push_back(word);
+        }
+    }
 }
 
 Dictionary::~Dictionary()
@@ -39,9 +66,8 @@ Dictionary::~Dictionary()
  */
 bool Dictionary::containsWord(const string& word) const
 {
-    return this->words.find(word) != this->words.end();
+    return this->wordLookup.find(word) != this->wordLookup.end();
 }
-
 
 /**
     Gets a random word from the dictionary.
@@ -55,13 +81,8 @@ bool Dictionary::containsWord(const string& word) const
 const string Dictionary::getRandomWord() const
 {
     srand(time(0));
-    int index = rand() % this->words.size();
-    auto iter = this->words.begin();
-    for (int i = 0; i < index; i++)
-    {
-        iter++;
-    }
-    return *iter;
+    int index = rand() % this->allWords.size();
+    return this->allWords[index];
 }
 
 /**
@@ -75,31 +96,9 @@ const string Dictionary::getRandomWord() const
  */
 const string Dictionary::getRandomWordWithUniqueLetters() const
 {
-    bool wordFound = false;
-    string word;
-    unordered_set<char> characters;
-
-    while (!wordFound)
-    {
-        wordFound = true;
-        characters.clear();
-        word = this->getRandomWord();
-
-        for (unsigned int i = 0; i < word.size(); i++)
-        {
-            if (characters.find(word[i]) == characters.end())
-            {
-                characters.insert(word[i]);
-            }
-            else
-            {
-                wordFound = false;
-                break;
-            }
-        }
-    }
-
-    return word;
+    srand(time(0));
+    int index = rand() % this->wordsWithoutDuplicates.size();
+    return this->wordsWithoutDuplicates[index];
 }
 
 }
