@@ -1,7 +1,7 @@
 #ifndef GUESSSTATUS_H
 #define GUESSSTATUS_H
 
-namespace controller
+namespace model
 {
 
 /**

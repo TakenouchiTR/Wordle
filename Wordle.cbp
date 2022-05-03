@@ -34,8 +34,6 @@
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
 		<Unit filename="controller/GuessStatus.h" />
-		<Unit filename="controller/WordleController.cpp" />
-		<Unit filename="controller/WordleController.h" />
 		<Unit filename="io/AccountReader.cpp" />
 		<Unit filename="io/AccountReader.h" />
 		<Unit filename="io/AccountWriter.cpp" />
@@ -53,15 +51,17 @@
 		<Unit filename="model/Dictionary.h" />
 		<Unit filename="model/UserAccount.cpp" />
 		<Unit filename="model/UserAccount.h" />
+		<Unit filename="model/WordleGame.cpp" />
+		<Unit filename="model/WordleGame.h" />
 		<Unit filename="utils/Utils.cpp" />
 		<Unit filename="utils/Utils.h" />
-		<Unit filename="view/AccountSelectWindow.cpp" />
-		<Unit filename="view/AccountSelectWindow.h" />
 		<Unit filename="view/DialogResult.h" />
 		<Unit filename="view/GameOverWindow.cpp" />
 		<Unit filename="view/GameOverWindow.h" />
-		<Unit filename="view/WordleMainWindow.cpp" />
-		<Unit filename="view/WordleMainWindow.h" />
+		<Unit filename="view/GameWindow.cpp" />
+		<Unit filename="view/GameWindow.h" />
+		<Unit filename="view/MainMenuWindow.cpp" />
+		<Unit filename="view/MainMenuWindow.h" />
 		<Unit filename="viewmodel/GameViewmodel.cpp" />
 		<Unit filename="viewmodel/GameViewmodel.h" />
 		<Extensions>

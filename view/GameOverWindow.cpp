@@ -6,8 +6,8 @@
 #include <sstream>
 using namespace std;
 
-#include "WordleController.h"
-using namespace controller;
+#include "WordleGame.h"
+using namespace model;
 
 namespace view
 {

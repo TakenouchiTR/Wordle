@@ -12,14 +12,12 @@
 #include <unordered_map>
 using namespace std;
 
-#include "WordleController.h"
-using namespace controller;
+#include "DialogResult.h"
+#include "WordleGame.h"
+using namespace model;
 
 #include "GameViewmodel.h"
 using namespace viewmodel;
-
-#include "MainMenuWindow.h"
-#include "DialogResult.h"
 
 #include "AccountReader.h"
 using namespace io;
@@ -40,7 +38,7 @@ namespace view
         title - The title of the application.
         controller - The controller for the application.
  */
-GameWindow::GameWindow(int width, int height, const char* title, WordleController* controller) : Fl_Window(width, height, title)
+GameWindow::GameWindow(int width, int height, const char* title, WordleGame* controller) : Fl_Window(width, height, title)
 {
     this->viewmodel = new GameViewmodel(controller);
     this->callback(cbQuitPressed, this);
