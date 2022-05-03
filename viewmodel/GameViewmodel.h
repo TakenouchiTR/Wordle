@@ -2,6 +2,7 @@
 #define GAMEVIEWMODEL_H
 
 #define FILE_PATH "data.csv"
+#define COLOR_PATH "colors.csv"
 
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
@@ -15,10 +16,8 @@ using namespace controller;
 
 #include "GuessStatus.h"
 
-#include "ApplicationColors.h"
-using namespace utils;
-
 #include "AccountManager.h"
+#include "ApplicationColors.h"
 #include "UserAccount.h"
 using namespace model;
 
@@ -29,6 +28,8 @@ class GameViewmodel
 {
 private:
     Fl_Box* boxes[MAX_GUESSES][WORD_SIZE];
+    Fl_Button* enterButton;
+    Fl_Button* backspaceButton;
 
     int currentRow;
     int currentColumn;
@@ -42,7 +43,7 @@ private:
     ApplicationColors colors;
 
     Fl_Box* getCurrentBox();
-    void setupColors();
+    void setupDefaultColors();
     void resetGame();
     void handleWin();
     void handleLoss();
@@ -58,6 +59,8 @@ public:
     void makeGuess();
     void setBox(int row, int col, Fl_Box* box);
     void setLetterButton(char letter, Fl_Button* letterButton);
+    void setEnterButton(Fl_Button* enterButton);
+    void setBackspaceButton(Fl_Button* backspaceButton);
 
 protected:
 };

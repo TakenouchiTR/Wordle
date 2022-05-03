@@ -1,6 +1,8 @@
 #ifndef ACCOUNTSELECTWINDOW_H
 #define ACCOUNTSELECTWINDOW_H
 
+#include "DialogResult.h"
+
 #include <FL/Fl.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Check_Button.H>
@@ -12,12 +14,8 @@
 using namespace std;
 
 #include "AccountManager.h"
-using namespace model;
-
-#include "DialogResult.h"
-
 #include "ApplicationColors.h"
-using namespace utils;
+using namespace model;
 
 namespace view
 {

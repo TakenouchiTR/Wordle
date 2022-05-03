@@ -96,6 +96,9 @@ void WordleMainWindow::setupKeyboard()
 
     enterButton->callback(cbEnterButtonPressed, this);
     backButton->callback(cbBackspaceButtonPressed, this);
+
+    this->viewmodel->setEnterButton(enterButton);
+    this->viewmodel->setBackspaceButton(backButton);
 }
 
 void WordleMainWindow::createKeyboardRow(int startX, int yCoord, int padding, int buttonSize, const string& letters)
