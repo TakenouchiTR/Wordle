@@ -11,11 +11,8 @@
 #include <unordered_map>
 using namespace std;
 
-#include "WordleController.h"
-using namespace controller;
-
+#include "WordleGame.h"
 #include "GuessStatus.h"
-
 #include "AccountManager.h"
 #include "ApplicationColors.h"
 #include "UserAccount.h"
@@ -38,7 +35,7 @@ private:
     unordered_map<char, Fl_Button*> letterButtons;
     unordered_map<char, GuessStatus> letterStatuses;
 
-    WordleController* controller;
+    WordleGame* controller;
     AccountManager accountManager;
     UserAccount* currentUser;
     int colorIndex;
@@ -54,7 +51,7 @@ private:
 
 public:
     GameViewmodel();
-    GameViewmodel(WordleController* controller);
+    GameViewmodel(WordleGame* controller);
     virtual ~GameViewmodel();
     void promptForAccount();
     void addLetter(char letter);

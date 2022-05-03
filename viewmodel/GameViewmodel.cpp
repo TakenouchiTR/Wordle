@@ -41,7 +41,7 @@ GameViewmodel::GameViewmodel()
     Params:
         controller - The controller for the Wordle game
  */
-GameViewmodel::GameViewmodel(WordleController* controller)
+GameViewmodel::GameViewmodel(WordleGame* controller)
 {
     if (controller == 0)
     {

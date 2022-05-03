@@ -1,5 +1,5 @@
-#ifndef WORDLECONTROLLER_H
-#define WORDLECONTROLLER_H
+#ifndef WORDLEGAME_H
+#define WORDLEGAME_H
 
 #define WORD_SIZE 5
 #define MAX_GUESSES 6
@@ -12,10 +12,10 @@ using namespace model;
 
 #include "GuessStatus.h"
 
-namespace controller
+namespace model
 {
 
-class WordleController
+class WordleGame
 {
 private:
     bool useUniqueLetters;
@@ -24,8 +24,8 @@ private:
     Dictionary* dictionary;
 
 public:
-    WordleController(Dictionary* dictionary);
-    virtual ~WordleController();
+    WordleGame(Dictionary* dictionary);
+    virtual ~WordleGame();
     void selectNewWord();
     GuessStatus* evaluateGuess();
     void addLetterToGuess(char letter);
@@ -40,4 +40,4 @@ public:
 
 }
 
-#endif // WORDLECONTROLLER_H
+#endif // WORDLEGAME_H

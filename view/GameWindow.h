@@ -11,14 +11,12 @@
 #include <unordered_map>
 using namespace std;
 
-#include "WordleController.h"
-#include "GuessStatus.h"
-using namespace controller;
-
 #include "GameViewmodel.h"
 using namespace viewmodel;
 
 #include "AccountManager.h"
+#include "WordleGame.h"
+#include "GuessStatus.h"
 using namespace model;
 
 namespace view
@@ -52,7 +50,7 @@ private:
     static void cbQuitPressed(Fl_Widget* widget, void* data);
 
 public:
-    GameWindow(int width, int height, const char* title, WordleController* cotroller);
+    GameWindow(int width, int height, const char* title, WordleGame* cotroller);
     virtual ~GameWindow();
     void show();
 };

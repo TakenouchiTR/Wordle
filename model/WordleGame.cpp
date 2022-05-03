@@ -1,4 +1,4 @@
-#include "WordleController.h"
+#include "WordleGame.h"
 
 #define DEBUG_OUTPUT
 
@@ -12,11 +12,11 @@ using namespace model;
 
 #include "GuessStatus.h"
 
-namespace controller
+namespace model
 {
 
 /**
-    Creates an instance of WordController with a specified dictionary.
+    Creates an instance of WordleGame with a specified dictionary.
 
     Precondition: None
     Postcondition: this->getGuess() == "" &&
@@ -26,7 +26,7 @@ namespace controller
     Params:
         dictionary - The dictionary containing all valid words
  */
-WordleController::WordleController(Dictionary* dictionary)
+WordleGame::WordleGame(Dictionary* dictionary)
 {
     this->guess = "";
     this->currentWord = "";
@@ -34,7 +34,7 @@ WordleController::WordleController(Dictionary* dictionary)
     this->dictionary = dictionary;
 }
 
-WordleController::~WordleController()
+WordleGame::~WordleGame()
 {
     //dtor
 }
@@ -49,7 +49,7 @@ WordleController::~WordleController()
     Params: None
     Return: None
  */
-void WordleController::selectNewWord()
+void WordleGame::selectNewWord()
 {
     if (this->useUniqueLetters)
     {
@@ -74,7 +74,7 @@ void WordleController::selectNewWord()
     Return: An array of size this->getGuess().size() containing the status of each
                 letter.
  */
-GuessStatus* WordleController::evaluateGuess()
+GuessStatus* WordleGame::evaluateGuess()
 {
     if (guess.size() != this->currentWord.size())
     {
@@ -142,7 +142,7 @@ GuessStatus* WordleController::evaluateGuess()
     Params: None
     Return: None
  */
-void WordleController::addLetterToGuess(char letter)
+void WordleGame::addLetterToGuess(char letter)
 {
     this->guess += letter;
 }
@@ -159,7 +159,7 @@ void WordleController::addLetterToGuess(char letter)
     Params: None
     Return: None
  */
-void WordleController::removeLetterFromGuess()
+void WordleGame::removeLetterFromGuess()
 {
     if (this->guess.size() > 0)
     {
@@ -176,7 +176,7 @@ void WordleController::removeLetterFromGuess()
     Params: None
     Return: None
  */
-void WordleController::clearGuess()
+void WordleGame::clearGuess()
 {
     this->guess = "";
 }
@@ -190,7 +190,7 @@ void WordleController::clearGuess()
     Params: None
     Return: The current guess.
  */
-const string& WordleController::getGuess()
+const string& WordleGame::getGuess()
 {
     return this->guess;
 }
@@ -204,7 +204,7 @@ const string& WordleController::getGuess()
     Params: None
     Return: The current word.
  */
-const string& WordleController::getCurrentWord()
+const string& WordleGame::getCurrentWord()
 {
     return this->currentWord;
 }
@@ -218,7 +218,7 @@ const string& WordleController::getCurrentWord()
     Params: None
     Return: Whether the current guess is in the dictionary.
  */
-bool WordleController::isGuessInDictionary()
+bool WordleGame::isGuessInDictionary()
 {
     return this->dictionary->containsWord(this->guess);
 }
@@ -233,7 +233,7 @@ bool WordleController::isGuessInDictionary()
     Params: None
     Return: Whether words with duplicated letters can be chosen.
  */
-bool WordleController::isUsingUniqueLetters()
+bool WordleGame::isUsingUniqueLetters()
 {
     return this->useUniqueLetters;
 }
@@ -248,7 +248,7 @@ bool WordleController::isUsingUniqueLetters()
     Params: None
     Return: None
  */
-void WordleController::setUsingUniqueLetters(bool useUniqueLetters)
+void WordleGame::setUsingUniqueLetters(bool useUniqueLetters)
 {
     this->useUniqueLetters = useUniqueLetters;
 }
