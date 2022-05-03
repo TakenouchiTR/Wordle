@@ -384,7 +384,7 @@ void GameViewmodel::resetUI()
     this->enterButton->redraw();
     this->backspaceButton->redraw();
 
-    this->answerBox->copy_label("          ");
+    this->answerBox->copy_label("                 ");
 }
 
 void GameViewmodel::saveGame()
