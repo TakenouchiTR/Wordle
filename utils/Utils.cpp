@@ -62,3 +62,23 @@ bool fileExists(const string& filePath)
     ifstream checkFile(filePath);
     return checkFile.good();
 }
+
+vector<string> splitString(const string& text, const char delimiter)
+{
+    vector<string> result;
+    int pos;
+    int prevPos = 0;
+
+    while ((pos = text.find(delimiter, prevPos)) != string::npos)
+    {
+        result.push_back(text.substr(prevPos, pos - prevPos));
+        prevPos = pos + 1;
+    }
+    if (prevPos < text.size())
+    {
+        result.push_back(text.substr(prevPos, text.size() - prevPos));
+    }
+
+
+    return result;
+}

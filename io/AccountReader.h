@@ -14,7 +14,6 @@ namespace io
 class AccountReader
 {
 private:
-    vector<string> splitString(const string& text, const char delimiter);
 
 public:
     AccountReader();
