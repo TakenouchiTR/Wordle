@@ -1,4 +1,4 @@
-#include "AccountSelectWindow.h"
+#include "MainMenuWindow.h"
 
 #define WINDOW_WIDTH 240
 #define WINDOW_HEIGHT 155
@@ -23,7 +23,8 @@ namespace view
                    this->getAccount() is a "random" account in accountManager if accounts
                         exist, otherwise it is null.
  */
-AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager, vector<string> colorChoices) : Fl_Window(WINDOW_WIDTH, WINDOW_HEIGHT, "User Select")
+MainMenuWindow::MainMenuWindow(AccountManager* accountManager, vector<string> colorChoices)
+    : Fl_Window(WINDOW_WIDTH, WINDOW_HEIGHT, "Main Menu")
 {
     this->accountManager = accountManager;
     this->usernames = accountManager->getUsernames();
@@ -54,7 +55,7 @@ AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager, vector<
     end();
 }
 
-AccountSelectWindow::~AccountSelectWindow()
+MainMenuWindow::~MainMenuWindow()
 {
     delete(this->nameChoice);
     delete(this->uniqueLetterCheckButton);
@@ -64,7 +65,7 @@ AccountSelectWindow::~AccountSelectWindow()
     delete(this->quitButton);
 }
 
-void AccountSelectWindow::createWidgets()
+void MainMenuWindow::createWidgets()
 {
     this->nameChoice = new Fl_Choice(55, 20, 165, 20, "User");
     this->colorChoice = new Fl_Choice(55, 60, 165, 20, "Color");
@@ -74,7 +75,7 @@ void AccountSelectWindow::createWidgets()
     this->quitButton = new Fl_Button(160, 120, 60, 20, "Quit");
 }
 
-void AccountSelectWindow::createCallbacks()
+void MainMenuWindow::createCallbacks()
 {
     this->nameChoice->callback(cbNameChoiceSelectionChanged, this);
     this->colorChoice->callback(cbColorChoiceSelectionChanged, this);
@@ -84,7 +85,7 @@ void AccountSelectWindow::createCallbacks()
     this->quitButton->callback(cbQuitButtonPressed, this);
 }
 
-void AccountSelectWindow::updateSelectedAccount()
+void MainMenuWindow::updateSelectedAccount()
 {
     string username = this->usernames[this->nameChoice->value()];
     this->selectedAccount = this->accountManager->getAccount(username);
@@ -92,12 +93,12 @@ void AccountSelectWindow::updateSelectedAccount()
     this->colorChoice->value(this->selectedAccount->getColorOption());
 }
 
-void AccountSelectWindow::nameChoiceSelectionChanged()
+void MainMenuWindow::nameChoiceSelectionChanged()
 {
     this->updateSelectedAccount();
 }
 
-void AccountSelectWindow::colorChoiceSelectionChanged()
+void MainMenuWindow::colorChoiceSelectionChanged()
 {
     if (this->selectedAccount == 0)
     {
@@ -106,7 +107,7 @@ void AccountSelectWindow::colorChoiceSelectionChanged()
     this->selectedAccount->setColorOption(this->colorChoice->value());
 }
 
-void AccountSelectWindow::uniqueLetterCheckButtonPressed()
+void MainMenuWindow::uniqueLetterCheckButtonPressed()
 {
     if (this->selectedAccount == 0)
     {
@@ -115,7 +116,7 @@ void AccountSelectWindow::uniqueLetterCheckButtonPressed()
     this->selectedAccount->setUsingUniqueLetters((bool)this->uniqueLetterCheckButton->value());
 }
 
-void AccountSelectWindow::selectButtonPressed()
+void MainMenuWindow::selectButtonPressed()
 {
     if (this->selectedAccount == 0)
     {
@@ -126,7 +127,7 @@ void AccountSelectWindow::selectButtonPressed()
     this->hide();
 }
 
-void AccountSelectWindow::newButtonPressed()
+void MainMenuWindow::newButtonPressed()
 {
     const char* result = fl_input("Enter a username");
 
@@ -154,7 +155,7 @@ void AccountSelectWindow::newButtonPressed()
     this->updateSelectedAccount();
 }
 
-void AccountSelectWindow::quitButtonPressed()
+void MainMenuWindow::quitButtonPressed()
 {
     this->result = DialogResult::SECONDARY;
     this->hide();
@@ -168,7 +169,7 @@ void AccountSelectWindow::quitButtonPressed()
 
     Return: The selected account.
  */
-UserAccount* AccountSelectWindow::getAccount()
+UserAccount* MainMenuWindow::getAccount()
 {
     if (this->selectedAccount == 0)
     {
@@ -185,39 +186,39 @@ UserAccount* AccountSelectWindow::getAccount()
 
     Return: The result for the window.
  */
-DialogResult AccountSelectWindow::getResult()
+DialogResult MainMenuWindow::getResult()
 {
     return this->result;
 }
 
-void AccountSelectWindow::cbNameChoiceSelectionChanged(Fl_Widget* widget, void* data)
+void MainMenuWindow::cbNameChoiceSelectionChanged(Fl_Widget* widget, void* data)
 {
-    ((AccountSelectWindow*) data)->nameChoiceSelectionChanged();
+    ((MainMenuWindow*) data)->nameChoiceSelectionChanged();
 }
 
-void AccountSelectWindow::cbUniqueLetterCheckButtonPressed(Fl_Widget* widget, void* data)
+void MainMenuWindow::cbUniqueLetterCheckButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((AccountSelectWindow*) data)->uniqueLetterCheckButtonPressed();
+    ((MainMenuWindow*) data)->uniqueLetterCheckButtonPressed();
 }
 
-void AccountSelectWindow::cbSelectButtonPressed(Fl_Widget* widget, void* data)
+void MainMenuWindow::cbSelectButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((AccountSelectWindow*) data)->selectButtonPressed();
+    ((MainMenuWindow*) data)->selectButtonPressed();
 }
 
-void AccountSelectWindow::cbNewButtonPressed(Fl_Widget* widget, void* data)
+void MainMenuWindow::cbNewButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((AccountSelectWindow*) data)->newButtonPressed();
+    ((MainMenuWindow*) data)->newButtonPressed();
 }
 
-void AccountSelectWindow::cbQuitButtonPressed(Fl_Widget* widget, void* data)
+void MainMenuWindow::cbQuitButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((AccountSelectWindow*) data)->quitButtonPressed();
+    ((MainMenuWindow*) data)->quitButtonPressed();
 }
 
-void AccountSelectWindow::cbColorChoiceSelectionChanged(Fl_Widget* widget, void* data)
+void MainMenuWindow::cbColorChoiceSelectionChanged(Fl_Widget* widget, void* data)
 {
-    ((AccountSelectWindow*) data)->colorChoiceSelectionChanged();
+    ((MainMenuWindow*) data)->colorChoiceSelectionChanged();
 }
 
 }

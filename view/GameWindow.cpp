@@ -1,4 +1,4 @@
-#include "WordleMainWindow.h"
+#include "GameWindow.h"
 
 #define MENU_HEIGHT 24
 #define BOX_SIZE 30
@@ -29,7 +29,7 @@ using namespace io;
 namespace view
 {
 /**
-    Creates an instance of WordleMainWindow with width, height, and title.
+    Creates an instance of GameWindow with width, height, and title.
 
     precondition: None
     postcondition: All values have been set.
@@ -40,7 +40,7 @@ namespace view
         title - The title of the application.
         controller - The controller for the application.
  */
-WordleMainWindow::WordleMainWindow(int width, int height, const char* title, WordleController* controller) : Fl_Window(width, height, title)
+GameWindow::GameWindow(int width, int height, const char* title, WordleController* controller) : Fl_Window(width, height, title)
 {
     this->viewmodel = new GameViewmodel(controller);
     this->callback(cbQuitPressed, this);
@@ -55,7 +55,7 @@ WordleMainWindow::WordleMainWindow(int width, int height, const char* title, Wor
     end();
 }
 
-WordleMainWindow::~WordleMainWindow()
+GameWindow::~GameWindow()
 {
     for (int i = 0; i < MAX_GUESSES; ++i)
     {
@@ -74,7 +74,7 @@ WordleMainWindow::~WordleMainWindow()
     delete this->backButton;
 }
 
-void WordleMainWindow::createLetterGrid()
+void GameWindow::createLetterGrid()
 {
     int boxYPosition = MENU_HEIGHT + 40;
     int xIncrement = BOX_SIZE + PADDING;
@@ -97,7 +97,7 @@ void WordleMainWindow::createLetterGrid()
     }
 }
 
-void WordleMainWindow::setupKeyboard()
+void GameWindow::setupKeyboard()
 {
     const int LONGEST_ROW = 10;
     const int KEYBOARD_WIDTH = (BOX_SIZE + PADDING) * LONGEST_ROW - PADDING;
@@ -119,7 +119,7 @@ void WordleMainWindow::setupKeyboard()
     this->viewmodel->setBackspaceButton(backButton);
 }
 
-void WordleMainWindow::createKeyboardRow(int yCoord, const string& letters)
+void GameWindow::createKeyboardRow(int yCoord, const string& letters)
 {
     int xIncrement = BOX_SIZE + PADDING;
     int rowWidth = xIncrement * letters.size() - PADDING;
@@ -139,7 +139,7 @@ void WordleMainWindow::createKeyboardRow(int yCoord, const string& letters)
     }
 }
 
-void WordleMainWindow::createMenuBar()
+void GameWindow::createMenuBar()
 {
     this->menuBar = new Fl_Menu_Bar(0, 0, this->w(), MENU_HEIGHT);
     this->menuBar->add("File/Quit", "", cbQuitPressed, this);
@@ -147,13 +147,13 @@ void WordleMainWindow::createMenuBar()
     this->menuBar->add("Game/Switch Users", "", cbSwitchUsersPressed, this);
 }
 
-void WordleMainWindow::show()
+void GameWindow::show()
 {
     Fl_Window::show();
     this->viewmodel->promptForAccount();
 }
 
-int WordleMainWindow::handle(int event)
+int GameWindow::handle(int event)
 {
     Fl_Window::handle(event);
     switch(event)
@@ -163,7 +163,7 @@ int WordleMainWindow::handle(int event)
     }
 }
 
-int WordleMainWindow::handleKeyDown(int key)
+int GameWindow::handleKeyDown(int key)
 {
     if (key == FL_Enter)
     {
@@ -179,39 +179,39 @@ int WordleMainWindow::handleKeyDown(int key)
     }
 }
 
-void WordleMainWindow::cbLetterButtonPressed(Fl_Widget* widget, void* data)
+void GameWindow::cbLetterButtonPressed(Fl_Widget* widget, void* data)
 {
     Fl_Button* button = (Fl_Button*) widget;
-    WordleMainWindow* window = (WordleMainWindow*) data;
+    GameWindow* window = (GameWindow*) data;
     char letter = button->label()[0];
     window->viewmodel->addLetter(letter);
 }
 
-void WordleMainWindow::cbEnterButtonPressed(Fl_Widget* widget, void* data)
+void GameWindow::cbEnterButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((WordleMainWindow*)data)->viewmodel->makeGuess();
+    ((GameWindow*)data)->viewmodel->makeGuess();
 }
 
-void WordleMainWindow::cbBackspaceButtonPressed(Fl_Widget* widget, void* data)
+void GameWindow::cbBackspaceButtonPressed(Fl_Widget* widget, void* data)
 {
-    ((WordleMainWindow*)data)->viewmodel->removeLetter();
+    ((GameWindow*)data)->viewmodel->removeLetter();
 }
 
-void WordleMainWindow::cbRestartPressed(Fl_Widget* widget, void* data)
+void GameWindow::cbRestartPressed(Fl_Widget* widget, void* data)
 {
-    ((WordleMainWindow*)data)->viewmodel->restartGame();
+    ((GameWindow*)data)->viewmodel->restartGame();
 }
 
-void WordleMainWindow::cbSwitchUsersPressed(Fl_Widget* widget, void* data)
+void GameWindow::cbSwitchUsersPressed(Fl_Widget* widget, void* data)
 {
-    ((WordleMainWindow*)data)->viewmodel->switchUsers();
+    ((GameWindow*)data)->viewmodel->switchUsers();
 }
 
-void WordleMainWindow::cbQuitPressed(Fl_Widget* widget, void* data)
+void GameWindow::cbQuitPressed(Fl_Widget* widget, void* data)
 {
-    if (((WordleMainWindow*)data)->viewmodel->quitGame())
+    if (((GameWindow*)data)->viewmodel->quitGame())
     {
-        ((WordleMainWindow*)data)->hide();
+        ((GameWindow*)data)->hide();
     }
 }
 

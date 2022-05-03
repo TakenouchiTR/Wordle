@@ -1,5 +1,5 @@
-#ifndef ACCOUNTSELECTWINDOW_H
-#define ACCOUNTSELECTWINDOW_H
+#ifndef MAINMENUWINDOW_H
+#define MAINMENUWINDOW_H
 
 #include "DialogResult.h"
 
@@ -20,7 +20,7 @@ using namespace model;
 namespace view
 {
 
-class AccountSelectWindow : public Fl_Window
+class MainMenuWindow : public Fl_Window
 {
 private:
     AccountManager* accountManager;
@@ -53,8 +53,8 @@ private:
     static void cbQuitButtonPressed(Fl_Widget* widget, void* data);
 
 public:
-    AccountSelectWindow(AccountManager* accountManager, vector<string> colorChoices);
-    virtual ~AccountSelectWindow();
+    MainMenuWindow(AccountManager* accountManager, vector<string> colorChoices);
+    virtual ~MainMenuWindow();
 
     UserAccount *getAccount();
     DialogResult getResult();
@@ -65,4 +65,4 @@ protected:
 
 }
 
-#endif // ACCOUNTSELECTWINDOW_H
+#endif // MAINMENUWINDOW_H

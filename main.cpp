@@ -1,4 +1,4 @@
-#include "WordleMainWindow.h"
+#include "GameWindow.h"
 using namespace view;
 
 #include "GuessStatus.h"
@@ -18,7 +18,7 @@ int main (int argc, char ** argv)
     Dictionary dictionary(words);
     WordleController* controller = new WordleController(&words);
 
-    WordleMainWindow window(380, 410, "Team C's Wordle Application", controller);
+    GameWindow window(380, 410, "Team C's Wordle Application", controller);
     window.show();
 
     int exitCode = Fl::run();

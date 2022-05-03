@@ -1,5 +1,5 @@
-#ifndef WORDLEMAINWINDOW_H
-#define WORDLEMAINWINDOW_H
+#ifndef GAMEWINDOW_H
+#define GAMEWINDOW_H
 
 #include <FL/Fl.H>
 #include <FL/Fl_Box.H>
@@ -23,7 +23,7 @@ using namespace model;
 
 namespace view
 {
-class WordleMainWindow : public Fl_Window
+class GameWindow : public Fl_Window
 {
 private:
     Fl_Menu_Bar* menuBar;
@@ -52,11 +52,11 @@ private:
     static void cbQuitPressed(Fl_Widget* widget, void* data);
 
 public:
-    WordleMainWindow(int width, int height, const char* title, WordleController* cotroller);
-    virtual ~WordleMainWindow();
+    GameWindow(int width, int height, const char* title, WordleController* cotroller);
+    virtual ~GameWindow();
     void show();
 };
 }
 
 
-#endif // WORDLEMAINWINDOW_H
+#endif // GAMEWINDOW_H
