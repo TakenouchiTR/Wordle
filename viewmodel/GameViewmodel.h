@@ -31,6 +31,7 @@ private:
     Fl_Button* enterButton;
     Fl_Button* backspaceButton;
 
+    bool playingGame;
     int currentRow;
     int currentColumn;
     unordered_map<char, Fl_Button*> letterButtons;
@@ -44,9 +45,10 @@ private:
 
     Fl_Box* getCurrentBox();
     void setupDefaultColors();
-    void resetGame();
+    void resetUI();
     void handleWin();
     void handleLoss();
+    void saveGame();
     void displayGameoverWindow(const string& title);
 
 public:
@@ -57,6 +59,9 @@ public:
     void addLetter(char letter);
     void removeLetter();
     void makeGuess();
+    void restartGame();
+    void switchUsers();
+    bool quitGame();
     void setBox(int row, int col, Fl_Box* box);
     void setLetterButton(char letter, Fl_Button* letterButton);
     void setEnterButton(Fl_Button* enterButton);

@@ -18,7 +18,7 @@ int main (int argc, char ** argv)
     Dictionary dictionary(words);
     WordleController* controller = new WordleController(&words);
 
-    WordleMainWindow window(500, 500, "Team C's Wordle Application", controller);
+    WordleMainWindow window(380, 410, "Team C's Wordle Application", controller);
     window.show();
 
     int exitCode = Fl::run();

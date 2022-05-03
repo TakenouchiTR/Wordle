@@ -31,17 +31,8 @@ AccountSelectWindow::AccountSelectWindow(AccountManager* accountManager, vector<
     this->selectedAccount = 0;
 
     begin();
-    this->nameChoice = new Fl_Choice(55, 20, 165, 20, "User");
-    this->colorChoice = new Fl_Choice(55, 60, 165, 20, "Color");
-    this->uniqueLetterCheckButton = new Fl_Check_Button(20, 90, 200, 20, "Use only unique letters");
-    this->selectButton = new Fl_Button(20, 115, 80, 20, "Select");
-    this->newButton = new Fl_Button(140, 115, 80, 20, "New");
-
-    this->nameChoice->callback(cbNameChoiceSelectionChanged, this);
-    this->colorChoice->callback(cbColorChoiceSelectionChanged, this);
-    this->uniqueLetterCheckButton->callback(cbUniqueLetterCheckButtonPressed, this);
-    this->selectButton->callback(cbSelectButtonPressed, this);
-    this->newButton->callback(cbNewButtonPressed, this);
+    this->createWidgets();
+    this->createCallbacks();
 
     for (const string& username : this->usernames)
     {
@@ -70,6 +61,27 @@ AccountSelectWindow::~AccountSelectWindow()
     delete(this->selectButton);
     delete(this->newButton);
     delete(this->colorChoice);
+    delete(this->quitButton);
+}
+
+void AccountSelectWindow::createWidgets()
+{
+    this->nameChoice = new Fl_Choice(55, 20, 165, 20, "User");
+    this->colorChoice = new Fl_Choice(55, 60, 165, 20, "Color");
+    this->uniqueLetterCheckButton = new Fl_Check_Button(20, 90, 200, 20, "Use only unique letters");
+    this->selectButton = new Fl_Button(20, 120, 60, 20, "Select");
+    this->newButton = new Fl_Button(90, 120, 60, 20, "New");
+    this->quitButton = new Fl_Button(160, 120, 60, 20, "Quit");
+}
+
+void AccountSelectWindow::createCallbacks()
+{
+    this->nameChoice->callback(cbNameChoiceSelectionChanged, this);
+    this->colorChoice->callback(cbColorChoiceSelectionChanged, this);
+    this->uniqueLetterCheckButton->callback(cbUniqueLetterCheckButtonPressed, this);
+    this->selectButton->callback(cbSelectButtonPressed, this);
+    this->newButton->callback(cbNewButtonPressed, this);
+    this->quitButton->callback(cbQuitButtonPressed, this);
 }
 
 void AccountSelectWindow::updateSelectedAccount()
@@ -138,6 +150,12 @@ void AccountSelectWindow::newButtonPressed()
     this->updateSelectedAccount();
 }
 
+void AccountSelectWindow::quitButtonPressed()
+{
+    this->result = DialogResult::SECONDARY;
+    this->hide();
+}
+
 /**
     Gets the selected account.
 
@@ -188,8 +206,14 @@ void AccountSelectWindow::cbNewButtonPressed(Fl_Widget* widget, void* data)
     ((AccountSelectWindow*) data)->newButtonPressed();
 }
 
+void AccountSelectWindow::cbQuitButtonPressed(Fl_Widget* widget, void* data)
+{
+    ((AccountSelectWindow*) data)->quitButtonPressed();
+}
+
 void AccountSelectWindow::cbColorChoiceSelectionChanged(Fl_Widget* widget, void* data)
 {
     ((AccountSelectWindow*) data)->colorChoiceSelectionChanged();
 }
+
 }
