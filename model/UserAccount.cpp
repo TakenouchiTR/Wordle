@@ -24,6 +24,7 @@ UserAccount::UserAccount(const string& username)
     this->currentWinStreak = 0;
     this->maxWinStreak = 0;
     this->useUniqueLetters = true;
+    this->colorOption = 0;
 
     for (unsigned int i = 0; i < MOVE_COUNT; i++)
     {

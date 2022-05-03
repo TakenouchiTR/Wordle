@@ -9,11 +9,9 @@
 #include <iostream>
 using namespace std;
 
+#include "ApplicationColors.h"
 #include "UserAccount.h"
 using namespace model;
-
-#include "ApplicationColors.h"
-using namespace utils;
 
 namespace view
 {

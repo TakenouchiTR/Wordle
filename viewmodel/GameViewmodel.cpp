@@ -9,6 +9,7 @@ using namespace std;
 
 #include "AccountReader.h"
 #include "AccountWriter.h"
+#include "ColorReader.h"
 using namespace io;
 
 #include "AccountSelectWindow.h"
@@ -52,7 +53,6 @@ GameViewmodel::GameViewmodel(WordleController* controller)
     this->currentRow = 0;
     this->currentColumn = 0;
     this->colorIndex = 0;
-    setupColors();
 
     if (fileExists(FILE_PATH))
     {
@@ -66,6 +66,22 @@ GameViewmodel::GameViewmodel(WordleController* controller)
             cout << e.what() << endl;
         }
     }
+    if (fileExists(COLOR_PATH))
+    {
+        try
+        {
+            ColorReader reader;
+            this->colors = reader.readFile(COLOR_PATH);
+        }
+        catch (exception& e)
+        {
+            cout << e.what() << endl;
+        }
+    }
+    else
+    {
+        this->setupDefaultColors();
+    }
 }
 
 GameViewmodel::~GameViewmodel()
@@ -73,9 +89,9 @@ GameViewmodel::~GameViewmodel()
     delete this->controller;
 }
 
-void GameViewmodel::setupColors()
+void GameViewmodel::setupDefaultColors()
 {
-    this->colors.addColorSetting("Normal Vision", {FL_GRAY, FL_DARK2, FL_YELLOW, FL_GREEN});
+    this->colors.addColorSetting("Normal", {FL_GRAY, FL_DARK2, FL_YELLOW, FL_GREEN});
     this->colors.addColorSetting("Deuteranopia", {FL_GRAY, FL_DARK2, 124, 175});
     this->colors.addColorSetting("Protanopia", {FL_GRAY, FL_DARK2, 84, FL_YELLOW});
     this->colors.addColorSetting("Tritanopia", {FL_GRAY, FL_DARK2, 253, 191});
@@ -168,6 +184,7 @@ void GameViewmodel::makeGuess()
         {
             this->letterStatuses[letter] = status;
         }
+
         this->letterButtons[letter]->color(this->colors.getColors()[this->colorIndex][this->letterStatuses[letter]]);
         this->letterButtons[letter]->redraw();
     }
@@ -339,22 +356,29 @@ void GameViewmodel::resetUI()
 {
     this->currentRow = 0;
     this->currentColumn = 0;
+    int unknownColor = this->colors.getColors()[this->colorIndex][GuessStatus::UNKNOWN];
 
     for (int row = 0; row < MAX_GUESSES; row++)
     {
         for (int col = 0; col < WORD_SIZE; col++)
         {
             this->boxes[row][col]->copy_label("");
-            this->boxes[row][col]->color(this->colors.getColors()[this->colorIndex][GuessStatus::UNKNOWN]);
+            this->boxes[row][col]->color(unknownColor);
         }
     }
 
     for (char letter = 'a'; letter <= 'z'; letter++)
     {
-        this->letterButtons[letter]->color(this->colors.getColors()[this->colorIndex][GuessStatus::UNKNOWN]);
+        this->letterButtons[letter]->color(unknownColor);
         this->letterStatuses[letter] = GuessStatus::UNKNOWN;
         this->letterButtons[letter]->redraw();
     }
+
+    this->enterButton->color(unknownColor);
+    this->backspaceButton->color(unknownColor);
+
+    this->enterButton->redraw();
+    this->backspaceButton->redraw();
 }
 
 void GameViewmodel::saveGame()
@@ -381,7 +405,7 @@ void GameViewmodel::promptForAccount()
             Fl::wait();
         }
     }
-
+  
     if (window.getResult() == DialogResult::PRIMARY)
     {
         this->currentUser = window.getAccount();
@@ -437,6 +461,44 @@ void GameViewmodel::setLetterButton(char letter, Fl_Button* letterButton)
     }
     this->letterButtons[letter] = letterButton;
     this->letterStatuses[letter] = GuessStatus::UNKNOWN;
+}
+
+/**
+    Sets the button for the on-screen keyboard's enter.
+
+    Precondition: letterButton != 0
+    Postcondition: None
+
+    Params:
+        enterButton - The enter button.
+ */
+void GameViewmodel::setEnterButton(Fl_Button* enterButton)
+{
+    if (enterButton == 0)
+    {
+        throw runtime_error("enterButton must not be null");
+    }
+
+    this->enterButton = enterButton;
+}
+
+/**
+    Sets the button for the on-screen keyboard's backspace.
+
+    Precondition: letterButton != 0
+    Postcondition: None
+
+    Params:
+        backspaceButton - The backspace button.
+ */
+void GameViewmodel::setBackspaceButton(Fl_Button* backspaceButton)
+{
+    if (backspaceButton == 0)
+    {
+        throw runtime_error("letterButton must not be null");
+    }
+
+    this->backspaceButton = backspaceButton;
 }
 
 Fl_Box* GameViewmodel::getCurrentBox()

@@ -11,9 +11,9 @@ Data pertaining to the colors of the application.
 Author: Alexander Ayers
 Version: Spring 2022
 */
-namespace utils
+namespace model
 {
-    
+
 class ApplicationColors
 {
 private:
@@ -27,7 +27,7 @@ public:
     vector<string> getTitles() const;
     vector<vector<int>> getColors() const;
 };
-    
+
 }
 
 #endif // APPLICATIONCOLORS_H

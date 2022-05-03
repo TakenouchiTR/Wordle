@@ -53,12 +53,12 @@ AccountManager AccountReader::readFile(const string& filePath)
     stringstream buffer;
     buffer << fileStream.rdbuf();
 
-    vector<string> lines = this->splitString(buffer.str(), '\n');
+    vector<string> lines = splitString(buffer.str(), '\n');
     for (string line : lines)
     {
         try
         {
-            vector<string> lineData = this->splitString(line, ',');
+            vector<string> lineData = splitString(line, ',');
             int winDistribution[MOVE_COUNT];
 
             string username = lineData[0];
@@ -91,26 +91,6 @@ AccountManager AccountReader::readFile(const string& filePath)
         }
     }
     return accountManager;
-}
-
-vector<string> AccountReader::splitString(const string& text, const char delimiter)
-{
-    vector<string> result;
-    int pos;
-    int prevPos = 0;
-
-    while ((pos = text.find(delimiter, prevPos)) != string::npos)
-    {
-        result.push_back(text.substr(prevPos, pos - prevPos));
-        prevPos = pos + 1;
-    }
-    if (prevPos < text.size())
-    {
-        result.push_back(text.substr(prevPos, text.size() - prevPos));
-    }
-
-
-    return result;
 }
 
 }
