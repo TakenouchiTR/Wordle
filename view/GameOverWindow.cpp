@@ -1,6 +1,6 @@
 #include "GameOverWindow.h"
 
-#define WINDOW_WIDTH 320
+#define WINDOW_WIDTH 360
 #define WINDOW_HEIGHT 240
 
 #include <sstream>
@@ -86,18 +86,31 @@ void GameOverWindow::createButtons()
 {
     const int BUTTON_Y = 210;
     const int BUTTON_HEIGHT = 20;
-    this->newGameButton = new Fl_Button(20, BUTTON_Y, WINDOW_WIDTH / 3, BUTTON_HEIGHT, "New Game");
-    this->switchUsersButton = new Fl_Button(WINDOW_WIDTH / 3 * 2 - 20, BUTTON_Y, WINDOW_WIDTH / 3,
-        BUTTON_HEIGHT, "Switch Users"
+    const int BUTTON_WIDTH = WINDOW_WIDTH / 4;
+    this->newGameButton = new Fl_Button(20, BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "New Game");
+    this->switchUsersButton = new Fl_Button((WINDOW_WIDTH - BUTTON_WIDTH - 5) / 2, BUTTON_Y,
+        BUTTON_WIDTH + 10, BUTTON_HEIGHT, "Switch Users"
+    );
+    this->quitButton = new Fl_Button(WINDOW_WIDTH - BUTTON_WIDTH - 20, BUTTON_Y, BUTTON_WIDTH,
+        BUTTON_HEIGHT, "Quit"
     );
 
     this->newGameButton->callback(cbNewGamePressed, this);
     this->switchUsersButton->callback(cbSwitchUsersPressed, this);
+    this->quitButton->callback(cbQuitPressed, this);
 }
 
 GameOverWindow::~GameOverWindow()
 {
-    //dtor
+    delete(this->statisticsBox);
+    delete(this->playedBox);
+    delete(this->winPercentBox);
+    delete(this->currentStreakBox);
+    delete(this->maxStreakBox);
+    delete(this->statsChart);
+    delete(this->quitButton);
+    delete(this->newGameButton);
+    delete(this->switchUsersButton);
 }
 
 DialogResult GameOverWindow::getResult()
@@ -117,6 +130,12 @@ void GameOverWindow::switchUsersPressed()
     this->hide();
 }
 
+void GameOverWindow::quitPressed()
+{
+    this->result = DialogResult::TERTIARY;
+    this->hide();
+}
+
 void GameOverWindow::cbNewGamePressed(Fl_Widget* widget, void* data)
 {
     ((GameOverWindow*) data)->newGamePressed();
@@ -125,6 +144,11 @@ void GameOverWindow::cbNewGamePressed(Fl_Widget* widget, void* data)
 void GameOverWindow::cbSwitchUsersPressed(Fl_Widget* widget, void* data)
 {
     ((GameOverWindow*) data)->switchUsersPressed();
+}
+
+void GameOverWindow::cbQuitPressed(Fl_Widget* widget, void* data)
+{
+    ((GameOverWindow*) data)->quitPressed();
 }
 
 }

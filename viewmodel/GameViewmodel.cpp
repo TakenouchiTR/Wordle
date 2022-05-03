@@ -325,9 +325,13 @@ void GameViewmodel::displayGameoverWindow(const string& title)
         this->controller->selectNewWord();
         this->playingGame = true;
     }
-    else
+    else if (window.getResult() == DialogResult::SECONDARY)
     {
         this->promptForAccount();
+    }
+    else
+    {
+        exit(0);
     }
 }
 

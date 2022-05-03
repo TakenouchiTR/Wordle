@@ -28,6 +28,7 @@ class GameOverWindow : public Fl_Window
         Fl_Box* maxStreakBox;
         Fl_Button* newGameButton;
         Fl_Button* switchUsersButton;
+        Fl_Button* quitButton;
         Fl_Chart* statsChart;
         DialogResult result;
 
@@ -37,9 +38,11 @@ class GameOverWindow : public Fl_Window
 
         void newGamePressed();
         void switchUsersPressed();
+        void quitPressed();
 
         static void cbNewGamePressed(Fl_Widget* widget, void* data);
         static void cbSwitchUsersPressed(Fl_Widget* widget, void* data);
+        static void cbQuitPressed(Fl_Widget* widget, void* data);
 
     public:
         GameOverWindow(UserAccount *account, const string& message);
