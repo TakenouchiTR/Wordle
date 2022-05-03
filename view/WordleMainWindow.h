@@ -29,6 +29,8 @@ private:
     Fl_Menu_Bar* menuBar;
     Fl_Box* winMessage;
     Fl_Box* boxes[MAX_GUESSES][WORD_SIZE];
+    Fl_Button* enterButton;
+    Fl_Button* backButton;
     unordered_map<char, Fl_Button*> letterButtons;
 
     GameViewmodel* viewmodel;

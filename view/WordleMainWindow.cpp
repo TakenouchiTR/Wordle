@@ -68,6 +68,8 @@ WordleMainWindow::~WordleMainWindow()
     }
     delete this->viewmodel;
     delete this->menuBar;
+    delete this->enterButton;
+    delete this->backButton;
 }
 
 void WordleMainWindow::createLetterGrid()
@@ -105,8 +107,8 @@ void WordleMainWindow::setupKeyboard()
 
     int enterXPos = (this->w() - KEYBOARD_WIDTH) / 2;
     int backXPos = (this->w() + KEYBOARD_WIDTH) / 2 - BOX_SIZE * 1.5;
-    Fl_Button* enterButton = new Fl_Button(enterXPos, START_Y + (BOX_SIZE + PADDING) * 2, BOX_SIZE * 1.5, BOX_SIZE, "Enter");
-    Fl_Button* backButton = new Fl_Button(backXPos, START_Y + (BOX_SIZE + PADDING) * 2, BOX_SIZE * 1.5, BOX_SIZE, "Back");
+    this->enterButton = new Fl_Button(enterXPos, START_Y + (BOX_SIZE + PADDING) * 2, BOX_SIZE * 1.5, BOX_SIZE, "Enter");
+    this->backButton = new Fl_Button(backXPos, START_Y + (BOX_SIZE + PADDING) * 2, BOX_SIZE * 1.5, BOX_SIZE, "Back");
 
     enterButton->callback(cbEnterButtonPressed, this);
     backButton->callback(cbBackspaceButtonPressed, this);
