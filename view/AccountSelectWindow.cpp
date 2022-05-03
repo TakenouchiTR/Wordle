@@ -99,6 +99,10 @@ void AccountSelectWindow::nameChoiceSelectionChanged()
 
 void AccountSelectWindow::colorChoiceSelectionChanged()
 {
+    if (this->selectedAccount == 0)
+    {
+        return;
+    }
     this->selectedAccount->setColorOption(this->colorChoice->value());
 }
 
