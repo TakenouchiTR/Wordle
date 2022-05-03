@@ -63,6 +63,17 @@ bool fileExists(const string& filePath)
     return checkFile.good();
 }
 
+/**
+    Splits a string along a given character delimiter.
+
+    Precondition: None
+    Postcondition: None
+
+    Params:
+        text - The string to split.
+        delimiter - The character to split on.
+    Return: A vector containing all the sub strings from the split.
+ */
 vector<string> splitString(const string& text, const char delimiter)
 {
     vector<string> result;
