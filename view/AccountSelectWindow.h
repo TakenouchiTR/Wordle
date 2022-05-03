@@ -34,6 +34,10 @@ private:
     Fl_Check_Button* uniqueLetterCheckButton;
     Fl_Button* selectButton;
     Fl_Button* newButton;
+    Fl_Button* quitButton;
+
+    void createWidgets();
+    void createCallbacks();
 
     void updateSelectedAccount();
     void nameChoiceSelectionChanged();
@@ -41,12 +45,14 @@ private:
     void uniqueLetterCheckButtonPressed();
     void selectButtonPressed();
     void newButtonPressed();
+    void quitButtonPressed();
 
     static void cbNameChoiceSelectionChanged(Fl_Widget* widget, void* data);
     static void cbColorChoiceSelectionChanged(Fl_Widget* widget, void* data);
     static void cbUniqueLetterCheckButtonPressed(Fl_Widget* widget, void* data);
     static void cbSelectButtonPressed(Fl_Widget* widget, void* data);
     static void cbNewButtonPressed(Fl_Widget* widget, void* data);
+    static void cbQuitButtonPressed(Fl_Widget* widget, void* data);
 
 public:
     AccountSelectWindow(AccountManager* accountManager, vector<string> colorChoices);

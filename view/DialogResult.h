@@ -20,7 +20,12 @@ enum DialogResult
     /**
         The secondary option for the dialog was selected.
      */
-     SECONDARY,
+    SECONDARY,
+
+    /**
+        The tertiary option for the dialog was selected.
+     */
+    TERTIARY,
 
     /**
         The dialog was closed using the X button.
