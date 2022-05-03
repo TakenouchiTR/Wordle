@@ -323,9 +323,13 @@ void GameViewmodel::handleLoss()
 
 void GameViewmodel::displayGameoverWindow(const string& title)
 {
+    this->answerBox->copy_label(this->controller->getCurrentWord().c_str());
+    this->answerBox->redraw();
+
     this->playingGame = false;
     GameOverWindow window(this->currentUser, title);
     window.set_modal();
+
     while (window.getResult() == DialogResult::CANCELLED)
     {
         window.show();
@@ -379,6 +383,8 @@ void GameViewmodel::resetUI()
 
     this->enterButton->redraw();
     this->backspaceButton->redraw();
+
+    this->answerBox->copy_label("          ");
 }
 
 void GameViewmodel::saveGame()
@@ -405,7 +411,7 @@ void GameViewmodel::promptForAccount()
             Fl::wait();
         }
     }
-  
+
     if (window.getResult() == DialogResult::PRIMARY)
     {
         this->currentUser = window.getAccount();
@@ -499,6 +505,11 @@ void GameViewmodel::setBackspaceButton(Fl_Button* backspaceButton)
     }
 
     this->backspaceButton = backspaceButton;
+}
+
+void GameViewmodel::setAnswerBox(Fl_Box* answerBox)
+{
+    this->answerBox = answerBox;
 }
 
 Fl_Box* GameViewmodel::getCurrentBox()

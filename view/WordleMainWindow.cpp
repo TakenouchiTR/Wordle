@@ -49,7 +49,9 @@ WordleMainWindow::WordleMainWindow(int width, int height, const char* title, Wor
     this->createLetterGrid();
     this->setupKeyboard();
     this->createMenuBar();
-    this->winMessage = new Fl_Box(FL_NO_BOX, 250, 50, 200, 50, "");
+    this->answerBox = new Fl_Box(FL_NO_BOX, width / 2 - 40, 50, 80, 20, "");
+    this->answerBox->align(FL_ALIGN_TOP);
+    this->viewmodel->setAnswerBox(this->answerBox);
     end();
 }
 

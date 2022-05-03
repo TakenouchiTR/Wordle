@@ -31,7 +31,8 @@ public:
     void addLetterToGuess(char letter);
     void removeLetterFromGuess();
     void clearGuess();
-    string& getGuess();
+    const string& getGuess();
+    const string& getCurrentWord();
     bool isGuessInDictionary();
     bool isUsingUniqueLetters();
     void setUsingUniqueLetters(bool useUniqueLetters);

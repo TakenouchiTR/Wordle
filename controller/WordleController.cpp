@@ -190,9 +190,23 @@ void WordleController::clearGuess()
     Params: None
     Return: The current guess.
  */
-string& WordleController::getGuess()
+const string& WordleController::getGuess()
 {
     return this->guess;
+}
+
+/**
+    Gets the current word.
+
+    Precondition: None
+    Postcondition: None
+
+    Params: None
+    Return: The current word.
+ */
+const string& WordleController::getCurrentWord()
+{
+    return this->currentWord;
 }
 
 /**

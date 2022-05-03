@@ -27,7 +27,7 @@ class WordleMainWindow : public Fl_Window
 {
 private:
     Fl_Menu_Bar* menuBar;
-    Fl_Box* winMessage;
+    Fl_Box* answerBox;
     Fl_Box* boxes[MAX_GUESSES][WORD_SIZE];
     Fl_Button* enterButton;
     Fl_Button* backButton;

@@ -30,6 +30,7 @@ private:
     Fl_Box* boxes[MAX_GUESSES][WORD_SIZE];
     Fl_Button* enterButton;
     Fl_Button* backspaceButton;
+    Fl_Box* answerBox;
 
     bool playingGame;
     int currentRow;
@@ -66,6 +67,7 @@ public:
     void setLetterButton(char letter, Fl_Button* letterButton);
     void setEnterButton(Fl_Button* enterButton);
     void setBackspaceButton(Fl_Button* backspaceButton);
+    void setAnswerBox(Fl_Box* answerBox);
 
 protected:
 };
