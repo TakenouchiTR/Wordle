@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-namespace utils
+namespace model
 {
 /**
     Creates an instance of ApplicationColors.
