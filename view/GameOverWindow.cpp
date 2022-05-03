@@ -88,15 +88,15 @@ void GameOverWindow::createButtons()
     const int BUTTON_HEIGHT = 20;
     const int BUTTON_WIDTH = WINDOW_WIDTH / 4;
     this->newGameButton = new Fl_Button(20, BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "New Game");
-    this->switchUsersButton = new Fl_Button((WINDOW_WIDTH - BUTTON_WIDTH - 5) / 2, BUTTON_Y,
-        BUTTON_WIDTH + 10, BUTTON_HEIGHT, "Switch Users"
+    this->mainMenuButton = new Fl_Button((WINDOW_WIDTH - BUTTON_WIDTH - 5) / 2, BUTTON_Y,
+        BUTTON_WIDTH + 10, BUTTON_HEIGHT, "Main Menu"
     );
     this->quitButton = new Fl_Button(WINDOW_WIDTH - BUTTON_WIDTH - 20, BUTTON_Y, BUTTON_WIDTH,
         BUTTON_HEIGHT, "Quit"
     );
 
     this->newGameButton->callback(cbNewGamePressed, this);
-    this->switchUsersButton->callback(cbSwitchUsersPressed, this);
+    this->mainMenuButton->callback(cbMainMenuPressed, this);
     this->quitButton->callback(cbQuitPressed, this);
 }
 
@@ -110,7 +110,7 @@ GameOverWindow::~GameOverWindow()
     delete(this->statsChart);
     delete(this->quitButton);
     delete(this->newGameButton);
-    delete(this->switchUsersButton);
+    delete(this->mainMenuButton);
 }
 
 DialogResult GameOverWindow::getResult()
@@ -124,7 +124,7 @@ void GameOverWindow::newGamePressed()
     this->hide();
 }
 
-void GameOverWindow::switchUsersPressed()
+void GameOverWindow::mainMenuPressed()
 {
     this->result = DialogResult::SECONDARY;
     this->hide();
@@ -141,9 +141,9 @@ void GameOverWindow::cbNewGamePressed(Fl_Widget* widget, void* data)
     ((GameOverWindow*) data)->newGamePressed();
 }
 
-void GameOverWindow::cbSwitchUsersPressed(Fl_Widget* widget, void* data)
+void GameOverWindow::cbMainMenuPressed(Fl_Widget* widget, void* data)
 {
-    ((GameOverWindow*) data)->switchUsersPressed();
+    ((GameOverWindow*) data)->mainMenuPressed();
 }
 
 void GameOverWindow::cbQuitPressed(Fl_Widget* widget, void* data)

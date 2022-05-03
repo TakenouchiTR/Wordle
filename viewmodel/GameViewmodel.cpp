@@ -12,7 +12,7 @@ using namespace std;
 #include "ColorReader.h"
 using namespace io;
 
-#include "AccountSelectWindow.h"
+#include "MainMenuWindow.h"
 #include "GameOverWindow.h"
 using namespace view;
 
@@ -401,7 +401,7 @@ void GameViewmodel::saveGame()
  */
 void GameViewmodel::promptForAccount()
 {
-    AccountSelectWindow window(&this->accountManager, this->colors.getTitles());
+    MainMenuWindow window(&this->accountManager, this->colors.getTitles());
     window.set_modal();
     while (window.getResult() == DialogResult::CANCELLED)
     {
