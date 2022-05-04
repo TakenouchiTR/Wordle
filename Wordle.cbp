@@ -20,6 +20,10 @@
 					<Add directory="View" />
 					<Add directory="view" />
 					<Add directory="controller" />
+					<Add directory="view/" />
+					<Add directory="viewmodel/" />
+					<Add directory="io/" />
+					<Add directory="model" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -30,17 +34,39 @@
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
 		<Unit filename="controller/GuessStatus.h" />
-		<Unit filename="controller/WordleController.cpp" />
-		<Unit filename="controller/WordleController.h" />
+		<Unit filename="io/AccountReader.cpp" />
+		<Unit filename="io/AccountReader.h" />
+		<Unit filename="io/AccountWriter.cpp" />
+		<Unit filename="io/AccountWriter.h" />
+		<Unit filename="io/ColorReader.cpp" />
+		<Unit filename="io/ColorReader.h" />
 		<Unit filename="io/DictionaryReader.cpp" />
 		<Unit filename="io/DictionaryReader.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="model/AccountManager.cpp" />
+		<Unit filename="model/AccountManager.h" />
+		<Unit filename="model/ApplicationColors.cpp" />
+		<Unit filename="model/ApplicationColors.h" />
 		<Unit filename="model/Dictionary.cpp" />
 		<Unit filename="model/Dictionary.h" />
+		<Unit filename="model/UserAccount.cpp" />
+		<Unit filename="model/UserAccount.h" />
+		<Unit filename="model/WordleGame.cpp" />
+		<Unit filename="model/WordleGame.h" />
 		<Unit filename="utils/Utils.cpp" />
 		<Unit filename="utils/Utils.h" />
-		<Unit filename="view/WordleMainWindow.cpp" />
-		<Unit filename="view/WordleMainWindow.h" />
-		<Extensions />
+		<Unit filename="view/DialogResult.h" />
+		<Unit filename="view/GameOverWindow.cpp" />
+		<Unit filename="view/GameOverWindow.h" />
+		<Unit filename="view/GameWindow.cpp" />
+		<Unit filename="view/GameWindow.h" />
+		<Unit filename="view/MainMenuWindow.cpp" />
+		<Unit filename="view/MainMenuWindow.h" />
+		<Unit filename="viewmodel/GameViewmodel.cpp" />
+		<Unit filename="viewmodel/GameViewmodel.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
